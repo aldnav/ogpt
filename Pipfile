@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 black = "==18.9b"
 django = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"
