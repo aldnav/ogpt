@@ -51,6 +51,9 @@ class GovernmentProject(models.Model):
         app_label = "govproject"
         ordering = ("pk",)
 
+    def __str__(self):
+        return self.title
+
 
 class ICCDate(models.Model):
     timestamp = models.DateTimeField(help_text="Datetime of ICCDate instance")
@@ -100,6 +103,10 @@ class ProjectLog(models.Model):
         blank=True,
     )
 
+    def __str__(self):
+
+        return "{0.timestamp} - {0.label} - {0.added_by.full_name}".format(self)
+
 
 class Region(models.Model):
     name = models.CharField(max_length=255)
@@ -110,6 +117,12 @@ class Region(models.Model):
         "Longitude", max_digits=18, decimal_places=12, blank=True, null=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class FundingSource(models.Model):
     name = models.CharField(max_length=255, help_text="Name of the funding source")
+
+    def __str__(self):
+        return self.name
