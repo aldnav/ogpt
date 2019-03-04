@@ -11,6 +11,8 @@ isort = "*"
 black = "==18.9b"
 django = "*"
 djangorestframework = "*"
+django-tables2 = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"
