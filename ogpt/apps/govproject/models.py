@@ -40,11 +40,8 @@ class GovernmentProject(models.Model):
         blank=True,
         help_text="Source of funding",
     )
-    administrative_area = models.ForeignKey(
-        "Region",
-        related_name="projects",
-        on_delete=models.PROTECT,
-        help_text="Target region of the project",
+    administrative_area = models.ManyToManyField(
+        "Region", related_name="projects", help_text="Target region of the project"
     )
 
     class Meta:
