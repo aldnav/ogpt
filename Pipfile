@@ -13,6 +13,7 @@ django = "*"
 djangorestframework = "*"
 django-tables2 = "*"
 django-filter = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.7"
