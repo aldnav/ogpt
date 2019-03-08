@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import GovernmentProject, Region, ProjectLog
+from .models import GovernmentProject, Region, ProjectLog, Agency, FundingSource
 
 
 @admin.register(GovernmentProject)
@@ -14,5 +14,15 @@ class RegionAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProjectLog)
-class ProjectLog(admin.ModelAdmin):
+class ProjectLogAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Agency)
+class AgencyAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(FundingSource)
+class FundingSourceAdmin(admin.ModelAdmin):
     pass

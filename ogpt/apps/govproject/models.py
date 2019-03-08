@@ -51,6 +51,15 @@ class GovernmentProject(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def implementation_time_info(self):
+        implementation_time_info = self.implementation_period
+        if self.implementation_period is None:
+            implementation_time_info = "{0.implementation_from} - {0.implementation_to}".format(
+                self
+            )
+        return implementation_time_info
+
 
 class ICCDate(models.Model):
     timestamp = models.DateTimeField(help_text="Datetime of ICCDate instance")
@@ -87,6 +96,9 @@ class ICCCCDate(ICCDate):
 class Agency(models.Model):
     name = models.CharField(max_length=255, help_text="Name of the agency")
     shortname = models.CharField(max_length=180, blank=True, help_text="Abbreviation")
+
+    def __str__(self):
+        return "{0.name} - {0.shortname}".format(self)
 
 
 class ProjectLog(models.Model):
