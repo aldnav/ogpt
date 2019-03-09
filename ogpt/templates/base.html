@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!doctype html>
-<html>
+<html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -9,6 +9,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/now-ui-kit.min.css' %}">
+        <link rel="stylesheet" href="{% static '/vendor/bootstrap-table.min.css' %}">
         {% block extra_head %}
         {% endblock %}
         <title>Open Government Project Tracker</title>
@@ -20,7 +21,7 @@
         </div>
         <script src="{% static '/vendor/jquery-3.3.1.slim.min.js' %}"></script>
         <script src="{% static '/vendor/popper.min.js' %}"></script>
-        <script src="{% static '/vendor/now-ui-kit/assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static '/vendor/now-ui-kit/assets/js/core/bootstrap.min.js' %}"></script>
         {% block extra_footer %}
         {% endblock %}
     </body>

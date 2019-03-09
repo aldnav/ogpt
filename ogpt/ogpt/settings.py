@@ -123,3 +123,7 @@ USE_TZ = True
 STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
 STATIC_ROOT = os.path.join(VAR_ROOT, "staticserve")
 STATIC_URL = "/static/"
+
+
+# django_tables2
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"

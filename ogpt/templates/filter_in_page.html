@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% if filter %}
+<!-- Button trigger modal -->
+<div class="buttons pull-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Filter
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filter table</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {% bootstrap_form_errors filter.form %}
+        <form action="" method="get" class="form">
+            {% bootstrap_form filter.form %}
+            {% bootstrap_button 'Apply Filter' button_class='btn-primary' %}
+            <a href="?reset_filters=1" class="btn btn-secondary pull-right">{% trans 'Reset filters' %}</a>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+{% endif %}
