@@ -14,6 +14,7 @@ djangorestframework = "*"
 django-tables2 = "*"
 django-filter = "*"
 ipython = "*"
+django-bootstrap4 = "*"
 
 [requires]
 python_version = "3.7"
