@@ -1,0 +1,11 @@
+{% extends "govproject/projects_base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+    {{ block.super }}
+    <form action="." method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button "Create Government Project" button_type="submit" button_class="btn-primary" %}
+    </form>
+{% endblock %}

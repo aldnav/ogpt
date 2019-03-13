@@ -1,9 +1,14 @@
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.messages.views import SuccessMessageMixin
+
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 
+from .forms import GovernmentProjectCreateForm
 from .filtersets import GovernmentProjectFilter
 from .models import GovernmentProject
 from .serializers import GovernmentProjectSerializer
@@ -22,3 +27,11 @@ class GovernmentProjectListView(
     template_name = "govproject/projects_list.html"
     table_class = GovernmentProjectTable
     filterset_class = GovernmentProjectFilter
+    paginate_by = 10
+
+
+class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):
+    form_class = GovernmentProjectCreateForm
+    template_name = "govproject/projects_create.html"
+    success_url = "/"
+    success_message = "%(title)s was added successfully"

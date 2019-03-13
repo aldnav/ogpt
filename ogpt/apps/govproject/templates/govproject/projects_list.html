@@ -4,5 +4,6 @@
 {% block content %}
     {{ block.super }}
     {% include "filter_in_page.html" %}
+    <a href="{% url 'govproject.GovernmentProjectCreateView' %}" class="button">Add new</a>
     {% render_table table %}
 {% endblock %}

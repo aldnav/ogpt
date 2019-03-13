@@ -6,4 +6,4 @@ from .models import GovernmentProject
 class GovernmentProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = GovernmentProject
-        fields = ("id", "title", "project", "description")
+        fields = ("id", "title", "description")
