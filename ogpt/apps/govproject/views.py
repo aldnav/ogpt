@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from django_filters.views import FilterView
+from django_tables2.paginators import LazyPaginator
 from django_tables2.views import SingleTableMixin
 from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
@@ -28,6 +29,7 @@ class GovernmentProjectListView(
     table_class = GovernmentProjectTable
     filterset_class = GovernmentProjectFilter
     paginate_by = 10
+    paginator_class = LazyPaginator
 
 
 class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):

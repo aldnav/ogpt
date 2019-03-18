@@ -4,7 +4,7 @@ from .models import GovernmentProject
 
 class GovernmentProjectTable(tables.Table):
     title = tables.Column()
-    description = tables.Column()
+    description = tables.Column(orderable=False)
     implementing_agency = tables.Column()
     total_project_cost = tables.Column()
     funding_source = tables.Column("Source of funding")
