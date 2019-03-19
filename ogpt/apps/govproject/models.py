@@ -1,5 +1,7 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class GovernmentProject(models.Model):
@@ -135,3 +137,48 @@ class FundingSource(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProgressReport(models.Model):
+    author = models.ForeignKey(
+        User,
+        related_name="added_reports",
+        default=settings.ANONYMOUS_USER,
+        on_delete=models.SET_DEFAULT,
+        help_text=_("The author of the report"),
+    )
+    project = models.ForeignKey(
+        GovernmentProject,
+        related_name="progress_reports",
+        on_delete=models.CASCADE,
+        help_text=_("The project to which this report is for"),
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
+    when_start = models.DateTimeField(
+        help_text=_("Defaults to datetime added"), auto_now_add=True
+    )
+    when_end = models.DateTimeField(
+        help_text=_("Defaults to datetime added"), auto_now_add=True
+    )
+    description = models.TextField(help_text=_("Describe what the report is about"))
+
+    SUPPLEMENTAL = 0
+    BLOCKER = 1
+    DISCONTINUED = 2
+    REPORT_TYPES = (
+        (SUPPLEMENTAL, "SUPPLEMENTAL"),
+        (BLOCKER, "BLOCKER"),
+        (DISCONTINUED, "DISCONTINUED"),
+    )
+    report_type = models.IntegerField(
+        choices=REPORT_TYPES,
+        default=SUPPLEMENTAL,
+        help_text=_(
+            "'Supplemental' are for normal reports. "
+            "'Blocker' indicates obstacles in progressing the project. "
+            "While 'Discontinued' flags a project as incomplete."
+        ),
+    )
+
+    def __str__(self):
+        return "Project-{0.project.pk} - Report: {0.pk} - By: {0.author}".format(self)
