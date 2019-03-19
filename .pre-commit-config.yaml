@@ -1,3 +1,6 @@
+exclude: '^$|settings|scripts'
+fail_fast: false
+
 repos:
   - repo: https://github.com/ambv/black
     rev: stable
