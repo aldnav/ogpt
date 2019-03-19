@@ -128,3 +128,7 @@ STATIC_URL = "/static/"
 
 # django_tables2
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
+
+# Anonymous/Ghost/Dummy user
+ANONYMOUS_USER = 1
