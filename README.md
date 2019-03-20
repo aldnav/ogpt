@@ -32,7 +32,7 @@ ENV=dev ./manage.py runserver 0.0.0.0:8000
 # Contributors
 
 - Aldrin Navarro <aldrinnavarro16@gmail.com>
--
+- Raphael Elamparo <lrcelamparo@gmail.com>
 -
 -
 

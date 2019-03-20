@@ -85,21 +85,48 @@ WSGI_APPLICATION = "ogpt.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# Change the DATABASES index on the right to appropriate values:
+#    default: SQLite
+#    postgre: PostgreSQL
+#    mysql: MySQL
+DB = "default"
+
 DATABASES = {
-    "default": {
+    "default": {  # DEFAULT: SQLite
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    },
+    "postgre": {  # PostgreSQL
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "dbase",  # Production Database Name
+        "USER": "user",  # Database Username
+        "PASSWORD": "pass",  # Database Password
+        "HOST": "127.0.0.1",  # Database IP Address
+        "PORT": "5432",  # Database Port (default: 5432)
+        "TEST": {
+            "NAME": "test",  # Test Database Name (Optional)
+        },
+    },
+    "mysql": {  # MySQL
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "dbase",  # Production Database Name
+        "USER": "user",  # Database Username
+        "PASSWORD": "pass",  # Database Password
+        "HOST": "127.0.0.1",  # Database IP Address
+        "PORT": "3306",  # Database Port (default: 3306)
+        "TEST": {
+            "NAME": "test",  # Test Database Name (Optional)
+        },
+    },
 }
 
+DATABASES["default"] = DATABASES[DB]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
