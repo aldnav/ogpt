@@ -3,7 +3,7 @@ from .models import GovernmentProject
 
 
 class GovernmentProjectTable(tables.Table):
-    title = tables.Column()
+    title = tables.TemplateColumn('<a href="{{ record.url }}">{{ value }}</a>')
     description = tables.Column(orderable=False)
     implementing_agency = tables.Column()
     total_project_cost = tables.Column()

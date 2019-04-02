@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from django_filters.views import FilterView
@@ -37,3 +37,8 @@ class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):
     template_name = "govproject/projects_create.html"
     success_url = "/"
     success_message = "%(title)s was added successfully"
+
+
+class GovernmentProjectDetailView(DetailView):
+    model = GovernmentProject
+    template_name = "govproject/projects_detail.html"

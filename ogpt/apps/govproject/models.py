@@ -66,6 +66,11 @@ class GovernmentProject(models.Model):
             )
         return implementation_time_info
 
+    @property
+    def url(self):
+        return reverse(
+            'govproject.GovernmentProjectDetailView', args=(self.slug,))
+
 
 class ICCDate(models.Model):
     timestamp = models.DateTimeField(help_text="Datetime of ICCDate instance")
@@ -185,8 +190,7 @@ class ProgressReport(models.Model):
     )
 
     tags = models.ManyToManyField(
-        "Tag", related_name="tags", help_text=_("Optional tags")
-    )
+        'Tag', related_name='tags', help_text=_('Optional tags'))
 
     def __str__(self):
         return "Project-{0.project.pk} - Report: {0.pk} - By: {0.author}".format(self)

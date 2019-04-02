@@ -1,0 +1,45 @@
+{% extends "govproject/projects_base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+    {{ block.super }}
+    <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
+
+    <h3>{{ object.title }}</h3>
+    <p>
+        {{ object.description }}
+    </p>
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-pills nav-pills-primary justify-content-center mt-4">
+          <li class="nav-item">
+            <a class="nav-link active" href="#implementation">Implementation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#progress">Progress</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Media</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body" id="implementation">
+        <dl class="row">
+            <dt class="col-sm-3">Agency</dt>
+            <dd class="col-sm-9">{{ object.implementing_agency.name }} ({{ object.implementing_agency.shortname }})</dd>
+
+            <dt class="col-sm-3">Source of funding</dt>
+            <dd class="col-sm-9">{{ object.funding_source.name }}</dd>
+
+            <dt class="col-sm-3">Total Project Cost</dt>
+            <dd class="col-sm-9">{{ object.total_project_cost }}</dd>
+
+            <dt class="col-sm-3">Regions/Provinces</dt>
+            <dd class="col-sm-9">{% for area in object.administrative_area.all %} {{ area.name }}<br> {% empty %}No regions specified{% endfor %}</dd>
+
+            <dt class="col-sm-3">Timespan</dt>
+            <dd class="col-sm-9">{{ object.implementation_time_info }}</dd>
+        </dl>
+      </div>
+    </div>
+{% endblock %}
