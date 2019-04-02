@@ -1,4 +1,4 @@
-exclude: '^$|settings|scripts'
+exclude: '^$|settings|scripts|migrations|'
 fail_fast: false
 
 repos:
