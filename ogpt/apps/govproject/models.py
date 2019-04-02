@@ -1,6 +1,9 @@
+import uuid
+
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -45,6 +48,7 @@ class GovernmentProject(models.Model):
     administrative_area = models.ManyToManyField(
         "Region", related_name="projects", help_text="Target region of the project"
     )
+    slug = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
 
     class Meta:
         app_label = "govproject"
@@ -180,5 +184,16 @@ class ProgressReport(models.Model):
         ),
     )
 
+    tags = models.ManyToManyField(
+        "Tag", related_name="tags", help_text=_("Optional tags")
+    )
+
     def __str__(self):
         return "Project-{0.project.pk} - Report: {0.pk} - By: {0.author}".format(self)
+
+
+class Tag(models.Model):
+    label = models.CharField(max_length=512)
+
+    def __str__(self):
+        return self.label
