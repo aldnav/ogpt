@@ -1,5 +1,7 @@
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 from django.views.generic import CreateView, DetailView
+from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
 from django_filters.views import FilterView
@@ -9,9 +11,9 @@ from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 
-from .forms import GovernmentProjectCreateForm
+from .forms import GovernmentProjectCreateForm, ProgressReportForm
 from .filtersets import GovernmentProjectFilter
-from .models import GovernmentProject
+from .models import GovernmentProject, ProgressReport
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
 
@@ -39,6 +41,41 @@ class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):
     success_message = "%(title)s was added successfully"
 
 
-class GovernmentProjectDetailView(DetailView):
+class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
     model = GovernmentProject
     template_name = "govproject/projects_detail.html"
+
+    http_method_names = ['get', 'post']
+    form_class = ProgressReportForm
+    prefix = 'PR'
+
+    success_message = "A progress report was added successfully"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['progress_reports'] = self.get_object().progress_reports.order_by('-timestamp')
+        return context
+
+    def get_initial(self):
+        return dict(
+            project=self.get_object(),
+            author=self.request.user,
+        )
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'govproject.GovernmentProjectDetailView',
+            args=(self.get_object().slug,)
+        ) + '#progress'
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
