@@ -195,6 +195,13 @@ class ProgressReport(models.Model):
     def __str__(self):
         return "Project-{0.project.pk} - Report: {0.pk} - By: {0.author}".format(self)
 
+    @property
+    def timeline_datetime(self):
+        return {
+            'start': self.when_start.strftime('%c'),
+            'end': self.when_end.strftime('%c'),
+        }
+
 
 class Tag(models.Model):
     label = models.CharField(max_length=512)

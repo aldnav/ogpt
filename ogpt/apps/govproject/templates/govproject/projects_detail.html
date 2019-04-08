@@ -1,6 +1,41 @@
 {% extends "govproject/projects_base.html" %}
 {% load bootstrap4 %}
 
+{% block extra_head %}
+<style>
+    ul.timeline {
+        list-style-type: none;
+        position: relative;
+    }
+    ul.timeline:before {
+        content: ' ';
+        background: #d4d9df;
+        display: inline-block;
+        position: absolute;
+        left: 29px;
+        width: 2px;
+        height: 100%;
+        z-index: 400;
+    }
+    ul.timeline > li {
+        margin: 20px 0;
+        padding-left: 20px;
+    }
+    ul.timeline > li:before {
+        content: ' ';
+        background: white;
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid #22c0e8;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        z-index: 400;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
     {{ block.super }}
     <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
@@ -9,37 +44,80 @@
     <p>
         {{ object.description }}
     </p>
-    <div class="card">
-      <div class="card-header">
-        <ul class="nav nav-pills nav-pills-primary justify-content-center mt-4">
-          <li class="nav-item">
-            <a class="nav-link active" href="#implementation">Implementation</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#progress">Progress</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Media</a>
-          </li>
-        </ul>
+    <div class="card card-nav-tabs card-plain">
+      <div class="card-header card-header-danger">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs nav-pills-primary nav-tabs justify-content-center mt-4" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="implementation-tab" href="#implementation" data-toggle="tab" role="tab" aria-controls="implementation" aria-selected="true">Implementation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="progress-tab" href="#progress" data-toggle="tab" role="tab" aria-controls="progress" aria-selected="false">Progress</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="media-tab" href="#media" data-toggle="tab" role="tab" aria-controls="media" aria-selected="false">Media</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
       </div>
-      <div class="card-body" id="implementation">
-        <dl class="row">
-            <dt class="col-sm-3">Agency</dt>
-            <dd class="col-sm-9">{{ object.implementing_agency.name }} ({{ object.implementing_agency.shortname }})</dd>
+      <div class="tab-content" id="tab-content">
+          <div class=" tab-pane fade show active" id="implementation" role="tabpanel" aria-labelledby="implementation-tab">
+              <dl class="row">
+                  <dt class="col-sm-3">Agency</dt>
+                  <dd class="col-sm-9">{{ object.implementing_agency.name }} ({{ object.implementing_agency.shortname }})</dd>
 
-            <dt class="col-sm-3">Source of funding</dt>
-            <dd class="col-sm-9">{{ object.funding_source.name }}</dd>
+                  <dt class="col-sm-3">Source of funding</dt>
+                  <dd class="col-sm-9">{{ object.funding_source.name }}</dd>
 
-            <dt class="col-sm-3">Total Project Cost</dt>
-            <dd class="col-sm-9">{{ object.total_project_cost }}</dd>
+                  <dt class="col-sm-3">Total Project Cost</dt>
+                  <dd class="col-sm-9">{{ object.total_project_cost }}</dd>
 
-            <dt class="col-sm-3">Regions/Provinces</dt>
-            <dd class="col-sm-9">{% for area in object.administrative_area.all %} {{ area.name }}<br> {% empty %}No regions specified{% endfor %}</dd>
+                  <dt class="col-sm-3">Regions/Provinces</dt>
+                  <dd class="col-sm-9">{% for area in object.administrative_area.all %} {{ area.name }}<br> {% empty %}No regions specified{% endfor %}</dd>
 
-            <dt class="col-sm-3">Timespan</dt>
-            <dd class="col-sm-9">{{ object.implementation_time_info }}</dd>
-        </dl>
+                  <dt class="col-sm-3">Timespan</dt>
+                  <dd class="col-sm-9">{{ object.implementation_time_info }}</dd>
+              </dl>
+          </div>
+          <div class="tab-pane fade" id="progress" role="tabpanel" aria-labelledby="progress-tab">
+              <div class="row justify-content-center">
+                  <div class="col-sm-8">
+                      <ul class="timeline">
+                          {% for progress_report in progress_reports %}
+                          <li>
+                              <a href="#" class="float-right">{{ progress_report.timeline_datetime.start }}</a>
+                              <p>{{ progress_report.description }}</p>
+                          </li>
+                          {% empty %}
+                          <p>No progress report.</p>
+                          {% endfor %}
+                      </ul>
+                      {% if form %}
+                      <a data-toggle="collapse" href="#create-report-form-container" aria-expanded="false">Create a progress report</a>
+                      <div id="create-report-form-container" class="collapse">
+                          <hr>
+                          <form action="." method="post">{% csrf_token %}
+                              {% bootstrap_form form %}
+                              <button class="btn btn-primary">Add progress report</button>
+                          </form>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
+              No media.
+          </div>
       </div>
     </div>
+{% endblock %}
+
+{% block extra_footer %}
+<script>
+    if (window.location.hash) {
+        $('.nav-link[href="' + window.location.hash + '"').click();
+    }
+</script>
 {% endblock %}
