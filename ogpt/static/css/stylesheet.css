@@ -1,0 +1,22 @@
+
+/*** project status ***/
+.status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #6c757d;
+}
+.status::before {
+    content: ' ';
+}
+
+.status-ongoing {
+    background-color: #4CD964;
+}
+.status-blocked {
+    background-color: #dd4b39;
+}
+.status-lapsed {
+    background-color: #fbf069;
+}
