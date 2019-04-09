@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 
 class GovernmentProject(models.Model):
@@ -61,8 +62,9 @@ class GovernmentProject(models.Model):
     def implementation_time_info(self):
         implementation_time_info = self.implementation_period
         if self.implementation_period is None:
-            implementation_time_info = "{0.implementation_from} - {0.implementation_to}".format(
-                self
+            implementation_time_info = "{} - {}".format(
+                self.implementation_from.strftime("%m/%d/%Y"),
+                self.implementation_to.strftime("%m/%d/%Y")
             )
         return implementation_time_info
 
@@ -70,6 +72,33 @@ class GovernmentProject(models.Model):
     def url(self):
         return reverse(
             'govproject.GovernmentProjectDetailView', args=(self.slug,))
+
+
+    @property
+    def has_lapsed(self):
+        is_lapsed = None
+        if self.implementation_to is not None:
+            is_lapsed = timezone.now() > self.implementation_to
+        return is_lapsed
+
+    @property
+    def is_discontinued(self):
+        return self.progress_reports.last().report_type == ProgressReport.DISCONTINUED
+
+    @property
+    def is_blocked(self):
+        return self.progress_reports.last().report_type == ProgressReport.BLOCKER
+
+    @property
+    def status(self):
+        status = 'ongoing'
+        if self.is_discontinued:
+            status = 'discontinued'
+        elif self.is_blocked:
+            status = 'blocked'
+        elif self.has_lapsed:
+            status =  'lapsed'
+        return status
 
 
 class ICCDate(models.Model):

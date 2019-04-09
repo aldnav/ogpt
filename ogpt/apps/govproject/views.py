@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 from .forms import GovernmentProjectCreateForm, ProgressReportForm
 from .filtersets import GovernmentProjectFilter
-from .models import GovernmentProject, ProgressReport
+from .models import GovernmentProject, Region
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
 
@@ -32,6 +32,16 @@ class GovernmentProjectListView(
     filterset_class = GovernmentProjectFilter
     paginate_by = 10
     paginator_class = LazyPaginator
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        selected_administrative_area = self.request.GET.get('administrative_area', [])
+        if len(selected_administrative_area) == 0:
+            admin_areas = Region.objects.all()
+        else:
+            admin_areas = Region.objects.filter(pk__in=selected_administrative_area)
+        context['administrative_areas'] = admin_areas
+        return context
 
 
 class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):

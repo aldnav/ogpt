@@ -8,4 +8,4 @@ class GovernmentProjectFilter(django_filters.FilterSet):
 
     class Meta:
         model = GovernmentProject
-        fields = ["title", "total_project_cost"]
+        fields = ["title", "total_project_cost", "administrative_area"]

@@ -3,7 +3,20 @@
 
 {% block content %}
     {{ block.super }}
-    {% include "filter_in_page.html" %}
-    <a href="{% url 'govproject.GovernmentProjectCreateView' %}" class="button">Add new</a>
-    {% render_table table %}
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="row justify-content-end action-buttons">
+                {% include "filter_in_page.html" %}
+                <div class="buttons pull-right">
+                    <a href="{% url 'govproject.GovernmentProjectCreateView' %}" class="button btn btn-primary"><i class="now-ui-icons ui-1_simple-add"></i>  Add new project</a>
+                </div>
+            </div>
+            <div class="area-selector">
+                {% for area in administrative_areas %}
+                    <span class="badge badge-default">{{ area.name }}</span>
+                {% endfor %}
+            </div>
+            {% render_table table %}
+        </div>
+    </div>
 {% endblock %}

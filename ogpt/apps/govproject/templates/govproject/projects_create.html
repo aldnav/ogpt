@@ -3,9 +3,15 @@
 
 {% block content %}
     {{ block.super }}
-    <form action="." method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% bootstrap_button "Create Government Project" button_type="submit" button_class="btn-primary" %}
-    </form>
+    <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
+    <h3>Add a Government Project</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="." method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button "Create Government Project" button_type="submit" button_class="btn-primary" %}
+            </form>
+        </div>
+    </div>
 {% endblock %}
