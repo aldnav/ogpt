@@ -11,7 +11,9 @@ The `requirements.txt` file is generated from the command
 `pipenv run pip freeze > requirements.txt`. Do not manually edit `requirements.txt`.
 
 Software packages:
+- SQLite
 - PostgreSQL
+- MySQL
 
 Common setup:
 
