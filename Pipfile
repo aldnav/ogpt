@@ -17,6 +17,10 @@ django-tables2 = "*"
 django-filter = "*"
 ipython = "*"
 django-bootstrap4 = "*"
+pymysql = "==0.9.3"
+psycopg2 = "==2.7.7"
+psycopg2-binary = "==2.7.7"
+mysql-connector-python = "==8.0.15"
 
 [requires]
 python_version = "3.7"
