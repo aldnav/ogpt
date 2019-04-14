@@ -9,6 +9,7 @@
 *.pyc
 __pycache__/
 local_settings.py
+ogpt/ogpt/dev_settings.py
 db.sqlite3
 media
 
