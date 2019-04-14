@@ -160,3 +160,10 @@ DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
 # Anonymous/Ghost/Dummy user
 ANONYMOUS_USER = 1
+
+
+# @NOTE: Migrate to directory settings in the future
+try:
+    from .dev_settings import *
+except ImportError:
+    pass
