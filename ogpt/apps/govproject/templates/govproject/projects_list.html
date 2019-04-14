@@ -12,11 +12,21 @@
                 </div>
             </div>
             <div class="area-selector">
+                <div>Selected areas
                 {% for area in administrative_areas %}
                     <span class="badge badge-default">{{ area.name }}</span>
                 {% endfor %}
+                </div>
             </div>
             {% render_table table %}
         </div>
     </div>
+{% endblock %}
+
+{% block extra_footer %}
+<script type="application/javascript">
+    $('#searchModal').on('shown.bs.modal', function(e) {
+        $('#searchModal input').first().focus();
+    });
+</script>
 {% endblock %}
