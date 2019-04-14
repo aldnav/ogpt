@@ -11,13 +11,15 @@ class GovernmentProjectTable(tables.Table):
     # description = tables.Column(orderable=False)
     implementing_agency = tables.Column()
     total_project_cost = tables.Column()
-    funding_source = tables.Column("Source of funding")
-    implementation_time_info = tables.Column("Implementation Period")
+    funding_source = tables.Column("Source of funding", orderable=False)
+    implementation_time_info = tables.Column("Implementation Period", orderable=False)
     # administrative_area = tables.Column(empty_values=())
 
     def render_title(self, record, value):
         return mark_safe(
-            '<a href="{0.url}"><span class="status status-{0.status}" title="{0.status}"></span>&nbsp;{0.title}</a>'.format(record)
+            '<a href="{0.url}"><span class="status status-{0.status}" title="{0.status}"></span>&nbsp;{0.title}</a>'.format(
+                record
+            )
         )
 
     def render_total_project_cost(self, record, value):
