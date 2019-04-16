@@ -1,5 +1,4 @@
 from django.urls import reverse_lazy
-from django.http import HttpResponse
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -9,7 +8,6 @@ from django_tables2.paginators import LazyPaginator
 from django_tables2.views import SingleTableMixin
 from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
-from rest_framework.response import Response
 
 from .forms import GovernmentProjectCreateForm, ProgressReportForm
 from .filtersets import GovernmentProjectFilter
@@ -17,12 +15,18 @@ from .models import GovernmentProject, Region
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
 
+from apps.django_tables_extensions.export import SerializerExportMixin
+
 
 default_renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
 
 
 class GovernmentProjectListView(
-    mixins.ListModelMixin, SingleTableMixin, FilterView, generics.GenericAPIView
+    mixins.ListModelMixin,
+    SerializerExportMixin,
+    SingleTableMixin,
+    FilterView,
+    generics.GenericAPIView,
 ):
     queryset = GovernmentProject.objects.all()
     serializer_class = GovernmentProjectSerializer
@@ -32,15 +36,16 @@ class GovernmentProjectListView(
     filterset_class = GovernmentProjectFilter
     paginate_by = 10
     paginator_class = LazyPaginator
+    export_name = "projects"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        selected_administrative_area = self.request.GET.get('administrative_area', [])
+        selected_administrative_area = self.request.GET.get("administrative_area", [])
         if len(selected_administrative_area) == 0:
             admin_areas = Region.objects.all()
         else:
             admin_areas = Region.objects.filter(pk__in=selected_administrative_area)
-        context['administrative_areas'] = admin_areas
+        context["administrative_areas"] = admin_areas
         return context
 
 
@@ -55,28 +60,29 @@ class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
     model = GovernmentProject
     template_name = "govproject/projects_detail.html"
 
-    http_method_names = ['get', 'post']
+    http_method_names = ["get", "post"]
     form_class = ProgressReportForm
-    prefix = 'PR'
+    prefix = "PR"
 
     success_message = "A progress report was added successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['progress_reports'] = self.get_object().progress_reports.order_by('-timestamp')
+        context["progress_reports"] = self.get_object().progress_reports.order_by(
+            "-timestamp"
+        )
         return context
 
     def get_initial(self):
-        return dict(
-            project=self.get_object(),
-            author=self.request.user,
-        )
+        return dict(project=self.get_object(), author=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy(
-            'govproject.GovernmentProjectDetailView',
-            args=(self.get_object().slug,)
-        ) + '#progress'
+        return (
+            reverse_lazy(
+                "govproject.GovernmentProjectDetailView", args=(self.get_object().slug,)
+            )
+            + "#progress"
+        )
 
     def post(self, request, *args, **kwargs):
         """
