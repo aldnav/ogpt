@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "bootstrap4",
     "django_extensions",
     "apps.govproject",
+    "apps.django_tables_extensions",
 ]
 
 MIDDLEWARE = [
