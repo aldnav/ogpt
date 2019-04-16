@@ -1,8 +1,10 @@
 {% extends "govproject/projects_base.html" %}
+{% load export_url from django_tables2 %}
 {% load render_table from django_tables2 %}
 
 {% block content %}
     {{ block.super }}
+    {% include "export_selected_form.html" %}
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row justify-content-end action-buttons">
@@ -11,11 +13,40 @@
                     <a href="{% url 'govproject.GovernmentProjectCreateView' %}" class="button btn btn-primary"><i class="now-ui-icons ui-1_simple-add"></i>  Add new project</a>
                 </div>
             </div>
-            <div class="area-selector">
-                <div>Selected areas
-                {% for area in administrative_areas %}
-                    <span class="badge badge-default">{{ area.name }}</span>
-                {% endfor %}
+            <div class="row d-block">
+                <div class="area-selector pull-left p-4">
+                    <div>Selected areas
+                        {% for area in administrative_areas %}
+                        <span class="badge badge-default">{{ area.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="pull-right d-flex table-actions">
+                    <div class="dropdown table-actions--download-selected d-none">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSelectedMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i> Selected
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownSelectedMenuButton">
+                            {% for format in table.export_formats %}
+                            <a class="dropdown-item export-selected"
+                               href="{% export_url format %}">
+                                {{ format|upper }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i> All
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for format in table.export_formats %}
+                            <a class="dropdown-item" href="{% export_url format %}">
+                                {{ format|upper }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
             {% render_table table %}

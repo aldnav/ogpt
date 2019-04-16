@@ -7,6 +7,7 @@ from .models import GovernmentProject
 
 
 class GovernmentProjectTable(tables.Table):
+    selected = tables.CheckBoxColumn(accessor="id", exclude_from_export=True)
     title = tables.Column("Project")
     # description = tables.Column(orderable=False)
     implementing_agency = tables.Column()
@@ -14,6 +15,8 @@ class GovernmentProjectTable(tables.Table):
     funding_source = tables.Column("Source of funding", orderable=False)
     implementation_time_info = tables.Column("Implementation Period", orderable=False)
     # administrative_area = tables.Column(empty_values=())
+
+    export_formats = ("csv", "json", "xlsx")
 
     def render_title(self, record, value):
         return mark_safe(
@@ -23,10 +26,14 @@ class GovernmentProjectTable(tables.Table):
         )
 
     def render_total_project_cost(self, record, value):
-        return intcomma(value)
+        return mark_safe(intcomma(value))
 
     def render_administrative_area(self, record, value):
-        return ",".join(record.administrative_area.all().values_list("name", flat=True))
+        return mark_safe(
+            ",".join(record.administrative_area.all().values_list("name", flat=True))
+        )
 
-    # class Meta:
+    class Meta:
+        attrs = {"id": "government-table"}
+
     #     model = GovernmentProject
