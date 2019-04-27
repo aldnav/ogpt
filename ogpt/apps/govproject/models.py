@@ -257,7 +257,12 @@ class Tag(models.Model):
 
 
 class ProjectMedia(models.Model):
-    media = models.FileField(upload_to="uploads/%Y/%m/%d/")
+    media = models.FileField(
+        upload_to="uploads/%Y/%m/%d/", help_text="Project media file"
+    )
+    description = models.CharField(
+        max_length=512, blank=True, help_text="Short description"
+    )
     owner = models.ForeignKey(
         User,
         related_name="uploaded_media",

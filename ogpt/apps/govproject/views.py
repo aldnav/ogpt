@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, View
+from django.views.generic import CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormMixin
 from django.shortcuts import get_object_or_404
 
@@ -57,6 +57,17 @@ class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):
     template_name = "govproject/projects_create.html"
     success_url = "/"
     success_message = "%(title)s was added successfully"
+
+
+class GovernmentProjectEditView(SuccessMessageMixin, UpdateView):
+    model = GovernmentProject
+    form_class = GovernmentProjectCreateForm
+    template_name = "govproject/projects_create.html"
+    success_message = "%(title)s edited!"
+    extra_context = {"user_action": "Edit"}
+
+    def get_success_url(self):
+        return self.object.url
 
 
 class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):

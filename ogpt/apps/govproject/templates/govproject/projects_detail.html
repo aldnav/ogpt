@@ -40,6 +40,7 @@
 {% block content %}
     {{ block.super }}
     <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
+    <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-light pull-right">Edit project</a>
 
     <h3>{{ object.title }}</h3>
     <p>
@@ -110,9 +111,9 @@
           </div>
           <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
               {% for media_file in object.media_files.all %}
-                  <img src="{{ media_file.media.url }}" alt="">
+                  <img src="{{ media_file.media.url }}" alt="{{ media_file.description|default:'project media file' }}">
               {% endfor %}
-              <form action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+              <form id="media-form" action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}" method="post" enctype="multipart/form-data">{% csrf_token %}
                   {{ media_form.errors }}
                   {{ media_form.as_p }}
                   <input type="hidden" name="accepts" value="media">
