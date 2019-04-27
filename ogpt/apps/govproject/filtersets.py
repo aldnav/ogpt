@@ -8,7 +8,7 @@ from .models import GovernmentProject
 
 
 class GovernmentProjectFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(lookup_expr="icontains")
+    # title = django_filters.CharFilter(lookup_expr="icontains")
     implementation_dates = django_filters.DateFromToRangeFilter(
         label="Implementation dates",
         method="filter_implementation_dates",
@@ -18,7 +18,7 @@ class GovernmentProjectFilter(django_filters.FilterSet):
     class Meta:
         model = GovernmentProject
         fields = [
-            "title",
+            # "title",
             "total_project_cost",
             "administrative_area",
             "implementing_agency",
