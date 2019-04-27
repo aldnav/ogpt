@@ -50,6 +50,11 @@ class GovernmentProject(models.Model):
         "Region", related_name="projects", help_text="Target region of the project"
     )
     slug = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    media_files = models.ManyToManyField(
+        "ProjectMedia",
+        related_name="projects",
+        help_text="Attached media files to the project",
+    )
 
     class Meta:
         app_label = "govproject"
@@ -61,18 +66,19 @@ class GovernmentProject(models.Model):
     @property
     def implementation_time_info(self):
         implementation_time_info = self.implementation_period
-        if self.implementation_period is None:
+
+        if self.implementation_period is None and (
+            None not in (self.implementation_from, self.implementation_to)
+        ):
             implementation_time_info = "{} - {}".format(
                 self.implementation_from.strftime("%m/%d/%Y"),
-                self.implementation_to.strftime("%m/%d/%Y")
+                self.implementation_to.strftime("%m/%d/%Y"),
             )
         return implementation_time_info
 
     @property
     def url(self):
-        return reverse(
-            'govproject.GovernmentProjectDetailView', args=(self.slug,))
-
+        return reverse("govproject.GovernmentProjectDetailView", args=(self.slug,))
 
     @property
     def has_lapsed(self):
@@ -83,21 +89,31 @@ class GovernmentProject(models.Model):
 
     @property
     def is_discontinued(self):
-        return self.progress_reports.last().report_type == ProgressReport.DISCONTINUED
+        try:
+            return (
+                self.progress_reports.last().report_type == ProgressReport.DISCONTINUED
+            )
+        except AttributeError:
+            pass
+        return False
 
     @property
     def is_blocked(self):
-        return self.progress_reports.last().report_type == ProgressReport.BLOCKER
+        try:
+            return self.progress_reports.last().report_type == ProgressReport.BLOCKER
+        except AttributeError:
+            pass
+        return False
 
     @property
     def status(self):
-        status = 'ongoing'
+        status = "ongoing"
         if self.is_discontinued:
-            status = 'discontinued'
+            status = "discontinued"
         elif self.is_blocked:
-            status = 'blocked'
+            status = "blocked"
         elif self.has_lapsed:
-            status =  'lapsed'
+            status = "lapsed"
         return status
 
 
@@ -193,10 +209,10 @@ class ProgressReport(models.Model):
     )
     timestamp = models.DateTimeField(auto_now_add=True)
     when_start = models.DateTimeField(
-        help_text=_("Defaults to datetime added"), auto_now_add=True
+        help_text=_("Defaults to datetime added"), null=True, blank=True
     )
     when_end = models.DateTimeField(
-        help_text=_("Defaults to datetime added"), auto_now_add=True
+        help_text=_("Defaults to datetime added"), null=True, blank=True
     )
     description = models.TextField(help_text=_("Describe what the report is about"))
 
@@ -219,7 +235,8 @@ class ProgressReport(models.Model):
     )
 
     tags = models.ManyToManyField(
-        'Tag', related_name='tags', help_text=_('Optional tags'))
+        "Tag", related_name="tags", help_text=_("Optional tags")
+    )
 
     def __str__(self):
         return "Project-{0.project.pk} - Report: {0.pk} - By: {0.author}".format(self)
@@ -227,8 +244,8 @@ class ProgressReport(models.Model):
     @property
     def timeline_datetime(self):
         return {
-            'start': self.when_start.strftime('%c'),
-            'end': self.when_end.strftime('%c'),
+            "start": self.when_start.strftime("%B %d %Y") if self.when_start else "-",
+            "end": self.when_end.strftime("%B %d %Y") if self.when_end else "-",
         }
 
 
@@ -237,3 +254,17 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.label
+
+
+class ProjectMedia(models.Model):
+    media = models.FileField(upload_to="uploads/%Y/%m/%d/")
+    owner = models.ForeignKey(
+        User,
+        related_name="uploaded_media",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.media.path

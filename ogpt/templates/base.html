@@ -19,11 +19,33 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-primary">
           <div class="container">
             <a class="navbar-brand" href="/">Open Government Project Tracker</a>
+            <ul class="navbar-nav ml-auto">
+              <li>
+                  <form action="" method="get" class="form search-form">
+                      <div class="input-group">
+                          <input type="search" name="title" class="form-control form-control-sm bg-light" placeholder="Search" value="{{ request.GET.title }}">
+                          <div class="input-group-append">
+                              <div class="input-group-text bg-light" data-toggle="modal" data-target="#searchModal">
+                                  <i class="now-ui-icons ui-1_zoom-bold"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </li>
+              <li class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="now-ui-icons ui-1_simple-add"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{% url 'govproject.GovernmentProjectCreateView' %}">Add New Project</a>
+                </div>
+              </li>
+            </ul>
           </div>
         </nav>
         <div class="container">
             {% for message in messages %}
-                <div class="alert alert-dismissible fade show alert-{{ message.tags }}" role="alert">
+                <div class="alert alert-dismissible fade show alert-info alert-{{ message.tags }}" role="alert">
                     {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

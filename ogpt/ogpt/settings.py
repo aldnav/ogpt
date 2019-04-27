@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
     "rest_framework",
     "django_tables2",
     "django_filters",
@@ -154,6 +155,10 @@ STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
 STATIC_ROOT = os.path.join(VAR_ROOT, "staticserve")
 STATIC_URL = "/static/"
 
+MEDIA_ROOT = os.path.join(VAR_ROOT, "media")
+MEDIA_URL = "/media/"
+
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # django_tables2
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
