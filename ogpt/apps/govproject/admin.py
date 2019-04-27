@@ -7,6 +7,7 @@ from .models import (
     Agency,
     FundingSource,
     ProgressReport,
+    ProjectMedia,
 )
 
 
@@ -37,4 +38,9 @@ class FundingSourceAdmin(admin.ModelAdmin):
 
 @admin.register(ProgressReport)
 class ProgressReport(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ProjectMedia)
+class ProjectMediaAdmin(admin.ModelAdmin):
     pass

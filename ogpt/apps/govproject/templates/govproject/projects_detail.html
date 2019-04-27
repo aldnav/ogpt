@@ -101,7 +101,7 @@
                           <hr>
                           <form action="." method="post">{% csrf_token %}
                               {% bootstrap_form form %}
-                              <button class="btn btn-primary">Add progress report</button>
+                              <button class="btn btn-primary" type="submit">Add progress report</button>
                           </form>
                       </div>
                       {% endif %}
@@ -109,7 +109,15 @@
               </div>
           </div>
           <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
-              No media.
+              {% for media_file in object.media_files.all %}
+                  <img src="{{ media_file.media.url }}" alt="">
+              {% endfor %}
+              <form action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                  {{ media_form.errors }}
+                  {{ media_form.as_p }}
+                  <input type="hidden" name="accepts" value="media">
+                  <button type="submit" class="btn">Submit image</button>
+              </form>
           </div>
       </div>
     </div>
@@ -120,5 +128,25 @@
     if (window.location.hash) {
         $('.nav-link[href="' + window.location.hash + '"').click();
     }
+
+    if ($("#id_PR-same_start_end").val() === "true") {
+        $("#id_PR-when_end").prop("disabled", true);
+    }
+    $('#id_PR-same_start_end').on("change", function(e) {
+        $("#id_PR-when_end").prop("disabled", $(this).val() === "true");
+        if ($(this).val() === "true") {
+            $("#id_PR-when_end").val(
+                $("#id_PR-when_start").val()
+            );
+        }
+    });
+    $("#id_PR-when_start").on("change", function() {
+        if ($('#id_PR-same_start_end').val() === "true") {
+            $("#id_PR-when_end").val(
+                $(this).val()
+            );
+        }
+    });
+
 </script>
 {% endblock %}
