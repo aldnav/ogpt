@@ -1,7 +1,10 @@
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
-from django.views.generic.edit import FormMixin
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, FormView, View
+from django.views.generic.edit import FormMixin
+from django.shortcuts import get_object_or_404
 
 from django_filters.views import FilterView
 from django_tables2.paginators import LazyPaginator
@@ -9,7 +12,7 @@ from django_tables2.views import SingleTableMixin
 from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
-from .forms import GovernmentProjectCreateForm, ProgressReportForm
+from .forms import GovernmentProjectCreateForm, ProgressReportForm, ProjectMediaForm
 from .filtersets import GovernmentProjectFilter
 from .models import GovernmentProject, Region
 from .serializers import GovernmentProjectSerializer
@@ -64,13 +67,16 @@ class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
     form_class = ProgressReportForm
     prefix = "PR"
 
-    success_message = "A progress report was added successfully"
+    # success_message = "A progress report was added successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["progress_reports"] = self.get_object().progress_reports.order_by(
-            "-timestamp"
+        context["progress_reports"] = (
+            self.get_object()
+            .progress_reports.exclude(when_start__isnull=True)
+            .order_by("-when_start", "-timestamp")
         )
+        context["media_form"] = ProjectMediaForm(initial={"owner": self.request.user})
         return context
 
     def get_initial(self):
@@ -89,9 +95,38 @@ class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
         Handle POST requests: instantiate a form instance with the passed
         POST variables and then check if it's valid.
         """
+        self.object = self.get_object()
+        if self.request.POST.get("accepts") == "media":
+            self.handle_media_form(request, *args, **kwargs)
         form = self.get_form()
         if form.is_valid():
             form.save()
+            messages.success(request, "Progress report created!")
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+    def handle_media_form(self, request, *args, **kwargs):
+        media_form = ProjectMediaForm(request.POST, request.FILES)
+        if media_form.is_valid():
+            media = media_form.save()
+            self.object.media_files.add(media)
+            messages.success(request, "Media file created!")
+            return self.form_valid(media_form)
+        else:
+            messages.error(request, media_form.errors)
+            return self.form_invalid(media_form)
+
+
+class ProjectMediaFormView(CreateView):
+    form_class = ProjectMediaForm
+    template_name = "govproject/project_media_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_slug = self.request.GET.get("project")
+        self.project = get_object_or_404(GovernmentProject, slug=project_slug)
+        return context
+
+    def get_success_url(self):
+        return self.project.url

@@ -17,6 +17,11 @@ urlpatterns = [
                     name="govproject.GovernmentProjectCreateView",
                 ),
                 path(
+                    "media/",
+                    views.ProjectMediaFormView.as_view(),
+                    name="govproject.ProjectMediaFormView",
+                ),
+                path(
                     "<slug:slug>/",
                     views.GovernmentProjectDetailView.as_view(),
                     name="govproject.GovernmentProjectDetailView",

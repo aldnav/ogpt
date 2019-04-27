@@ -23,9 +23,13 @@ class GovernmentProjectSerializer(serializers.ModelSerializer):
         )
 
     def get_implementing_agency(self, obj):
+        if obj.implementing_agency is None:
+            return ""
         return obj.implementing_agency.name
 
     def get_funding_source(self, obj):
+        if obj.funding_source is None:
+            return ""
         return obj.funding_source.name
 
     def get_administrative_area(self, obj):
