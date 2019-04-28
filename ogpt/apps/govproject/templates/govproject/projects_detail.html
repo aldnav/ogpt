@@ -102,7 +102,7 @@
                           <hr>
                           <form action="." method="post">{% csrf_token %}
                               {% bootstrap_form form %}
-                              <button class="btn btn-primary" type="submit">Add progress report</button>
+                              <button class="btn btn-primary pull-right" type="submit">Add progress report</button>
                           </form>
                       </div>
                       {% endif %}
@@ -118,7 +118,7 @@
                       <!--{% bootstrap_form media_form %}-->
                       {{ media_form.as_p }}
                       <input type="hidden" name="accepts" value="media">
-                      <button type="submit" class="btn">Upload image</button>
+                      <button type="submit" class="btn btn-primary pull-right">Upload image</button>
                   </form>
               </div>
               <div class="row">
