@@ -7,6 +7,7 @@ class GovernmentProjectCreateForm(ModelForm):
     class Meta:
         model = GovernmentProject
         fields = "__all__"
+        exclude = ["media_files"]
 
 
 class ProgressReportForm(ModelForm):
