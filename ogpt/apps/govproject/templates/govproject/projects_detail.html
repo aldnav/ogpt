@@ -110,15 +110,24 @@
               </div>
           </div>
           <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
-              {% for media_file in object.media_files.all %}
-                  <img src="{{ media_file.media.url }}" alt="{{ media_file.description|default:'project media file' }}">
-              {% endfor %}
-              <form id="media-form" action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-                  {{ media_form.errors }}
-                  {{ media_form.as_p }}
-                  <input type="hidden" name="accepts" value="media">
-                  <button type="submit" class="btn">Submit image</button>
-              </form>
+              <div class="row justify-content-center">
+                  <form id="media-form" action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}"
+                        class="col-6"
+                        method="post"
+                        enctype="multipart/form-data">{% csrf_token %}
+                      <!--{% bootstrap_form media_form %}-->
+                      {{ media_form.as_p }}
+                      <input type="hidden" name="accepts" value="media">
+                      <button type="submit" class="btn">Upload image</button>
+                  </form>
+              </div>
+              <div class="row">
+                  {% for media_file in object.media_files.all %}
+                    <div class="col-md-4 p-0 m-0">
+                      <img src="{{ media_file.media.url }}" alt="{{ media_file.description|default:'project media file' }}" title="{{ media_file.description }}">
+                    </div>
+                  {% endfor %}
+              </div>
           </div>
       </div>
     </div>
