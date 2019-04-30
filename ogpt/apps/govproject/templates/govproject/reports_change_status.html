@@ -1,0 +1,28 @@
+{% extends "govproject/projects_base.html" %}
+
+{% block content %}
+    <h2>{{ user_action|title }} report</h2>
+    <form action="." method="post">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="{{ next_status }}">
+        <table class="table table-active">
+            <dl class="row">
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">{{ object.description }}</dd>
+                <dt class="col-sm-3">Report Type</dt>
+                <dd class="col-sm-9">{{ object.get_report_type_display }}</dd>
+                <dt class="col-sm-3">Timeline</dt>
+                <dd class="col-sm-9">{{ object.timeline_datetime.start }} {{ object.timeline_datetime.end }}</dd>
+            </dl>
+        </table>
+        <div>
+            {% if user_action == 'verify' %}
+                <p>I hereby verify that the report is complete is and true.</p>
+            {% elif user_action == 'approve' %}
+                <p>I hereby approve the report and make it public.</p>
+            {% endif %}
+            <input type="submit" value="{{ user_action|title }}" class="btn btn-primary">
+            <a href="{{ object.project_url }}" class="btn">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

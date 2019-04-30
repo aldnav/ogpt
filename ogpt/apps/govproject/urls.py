@@ -39,4 +39,21 @@ urlpatterns = [
             ]
         ),
     ),
+    path(
+        "reports/<int:pk>/",
+        include(
+            [
+                path(
+                    "verify/",
+                    views.ReportVerifyView.as_view(),
+                    name="govproject.ReportVerifyView",
+                ),
+                path(
+                    "approve/",
+                    views.ReportApproveView.as_view(),
+                    name="govproject.ReportApproveView",
+                ),
+            ]
+        ),
+    ),
 ]
