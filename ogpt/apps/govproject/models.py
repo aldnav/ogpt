@@ -239,7 +239,17 @@ class ProgressReport(models.Model):
     )
 
     tags = models.ManyToManyField(
-        "Tag", related_name="tags", help_text=_("Optional tags")
+        "Tag", related_name="tags", help_text=_("Optional tags"), blank=True
+    )
+
+    INITIAL = 0
+    VERIFIED = 1  # Progress report is verified complete and true
+    APPROVED = 2  # Progress report is approved by stakeholders, last chance to edit
+    STATUSES = ((INITIAL, "INITIAL"), (VERIFIED, "VERIFIED"), (APPROVED, "APPROVED"))
+    status = models.IntegerField(
+        choices=STATUSES,
+        default=INITIAL,
+        help_text=_("Verification status of a progress report"),
     )
 
     def __str__(self):
@@ -251,6 +261,26 @@ class ProgressReport(models.Model):
             "start": self.when_start.strftime("%B %d %Y") if self.when_start else "-",
             "end": self.when_end.strftime("%B %d %Y") if self.when_end else "-",
         }
+
+    @property
+    def next_status_url(self):
+        return [self.verify_url, self.approve_url, None][self.status]
+
+    @property
+    def next_status_verb(self):
+        return ["Verify", "Approve", None][self.status]
+
+    @property
+    def verify_url(self):
+        return reverse("govproject.ReportVerifyView", args=(self.pk,))
+
+    @property
+    def approve_url(self):
+        return reverse("govproject.ReportApproveView", args=(self.pk,))
+
+    @property
+    def project_url(self):
+        return self.project.url
 
 
 class Tag(models.Model):

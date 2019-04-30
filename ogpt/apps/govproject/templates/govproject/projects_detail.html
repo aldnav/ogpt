@@ -96,7 +96,14 @@
                       <ul class="timeline">
                           {% for progress_report in progress_reports %}
                           <li>
-                              <a href="#" class="float-right">{{ progress_report.timeline_datetime.start }}</a>
+                              <span class="float-right">
+                                  <a href="#">{{ progress_report.timeline_datetime.start }}</a>
+                                  {% if perms.sites.frontend_access and progress_report.next_status_url %}
+                                    <a href="{{ progress_report.next_status_url }}" class="btn btn-sm btn-info btn-link p-0 m-0">
+                                        <span class="oi oi-check"></span> {{ progress_report.next_status_verb }}
+                                    </a>
+                                  {% endif %}
+                              </span>
                               <p>{{ progress_report.description }}</p>
                           </li>
                           {% empty %}

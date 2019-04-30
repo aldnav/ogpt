@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 from .models import GovernmentProject, ProgressReport, ProjectMedia
 
 
@@ -48,3 +48,17 @@ class ProjectMediaForm(ModelForm):
         model = ProjectMedia
         fields = "__all__"
         widgets = {"owner": forms.HiddenInput()}
+
+
+class ProgressReportChangeStatusForm(ModelForm):
+    class Meta:
+        model = ProgressReport
+        fields = ["status"]
+
+    def clean_status(self):
+        status = self.cleaned_data.get("status")
+        if status <= self.instance.status:
+            raise ValidationError(
+                _("Invalid status: %(value)"), params={"value": status}
+            )
+        return status
