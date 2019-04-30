@@ -27,6 +27,11 @@ urlpatterns = [
                     name="govproject.GovernmentProjectEditView",
                 ),
                 path(
+                    "<slug:slug>/remove/",
+                    views.GovernmentProjectRemoveView.as_view(),
+                    name="govproject.GovernmentProjectRemoveView",
+                ),
+                path(
                     "<slug:slug>/",
                     views.GovernmentProjectDetailView.as_view(),
                     name="govproject.GovernmentProjectDetailView",
