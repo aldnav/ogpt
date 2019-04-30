@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/now-ui-kit.min.css' %}">
         <link rel="stylesheet" href="{% static '/vendor/bootstrap-table.min.css' %}">
         <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}">
+        <link rel="stylesheet" href="{% static '/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css' %}" rel="stylesheet">
         {% block extra_head %}
         {% endblock %}
         <title>Open Government Project Tracker</title>
@@ -27,6 +28,7 @@
                       </div>
                   </form>
               </li>
+              {% if perms.sites.frontend_access %}
               <li class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="now-ui-icons ui-1_simple-add"></i>
@@ -35,6 +37,7 @@
                     <a class="dropdown-item" href="{% url 'govproject.GovernmentProjectCreateView' %}">Add New Project</a>
                 </div>
               </li>
+              {% endif %}
             </ul>
           </div>
         </nav>

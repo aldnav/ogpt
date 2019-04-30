@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "django.forms",
     "rest_framework",
     "django_tables2",
@@ -167,6 +168,13 @@ DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 # Anonymous/Ghost/Dummy user
 ANONYMOUS_USER = 1
 
+# STAFF USER DATA
+STAFF_USER_DATA = [
+    # email, username, first name, last name, password
+    ('aldrin@ogpt.com', 'aldrin', 'Aldrin', 'Navarro', 'aldrin'),
+]
+
+SITE_ID = 1
 
 # @NOTE: Migrate to directory settings in the future
 try:
