@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
 from django.views.generic.edit import FormMixin
@@ -31,7 +31,7 @@ class GovernmentProjectListView(
     FilterView,
     generics.GenericAPIView,
 ):
-    queryset = GovernmentProject.objects.all()
+    queryset = GovernmentProject.objects.filter(removed=False)
     serializer_class = GovernmentProjectSerializer
     renderer_classes = default_renderer_classes
     template_name = "govproject/projects_list.html"
@@ -70,8 +70,28 @@ class GovernmentProjectEditView(SuccessMessageMixin, UpdateView):
         return self.object.url
 
 
+class GovernmentProjectRemoveView(DetailView):
+    model = GovernmentProject
+    queryset = GovernmentProject.objects.filter(removed=False)
+    template_name = "govproject/projects_remove.html"
+    success_message = "{0.id} - {0.title} deleted!"
+
+    def get_success_url(self):
+        return reverse_lazy("govproject.GovernmentProjectListView")
+
+    def post(self, request, *args, **kwargs):
+        if self.request.POST.get("delete") == "1":
+            project = self.get_object()
+            project.removed = True
+            project.save()
+            messages.success(request, message=self.success_message.format(project))
+            return HttpResponseRedirect(self.get_success_url())
+        return self.get(request, *args, **kwargs)
+
+
 class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
     model = GovernmentProject
+    queryset = GovernmentProject.objects.filter(removed=False)
     template_name = "govproject/projects_detail.html"
 
     http_method_names = ["get", "post"]
@@ -136,7 +156,9 @@ class ProjectMediaFormView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project_slug = self.request.GET.get("project")
-        self.project = get_object_or_404(GovernmentProject, slug=project_slug)
+        self.project = get_object_or_404(
+            GovernmentProject, slug=project_slug, removed=False
+        )
         return context
 
     def get_success_url(self):

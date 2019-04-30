@@ -54,7 +54,11 @@ class GovernmentProject(models.Model):
         "ProjectMedia",
         related_name="projects",
         help_text="Attached media files to the project",
+        null=True,
+        blank=True,
     )
+    # Soft delete of Government Project data
+    removed = models.BooleanField(default=False, help_text="Mark project as removed")
 
     class Meta:
         app_label = "govproject"
