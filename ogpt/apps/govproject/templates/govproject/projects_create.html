@@ -10,6 +10,9 @@
             <form action="." method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
+                {% if user_action == 'Edit' %}
+                    <a href="{% url 'govproject.GovernmentProjectDetailView' object.slug %}" class="btn btn-secondary">Cancel</a>
+                {% endif %}
                 {% bootstrap_button "Save" button_type="submit" button_class="btn-primary pull-right" %}
             </form>
         </div>

@@ -1,0 +1,12 @@
+{% extends "govproject/projects_base.html" %}
+
+{% block content %}
+    {{ block.super }}
+    Are you sure you want to remove "{{ object.title }}" ?
+    <form action="{% url 'govproject.GovernmentProjectRemoveView' object.slug %}" method="post">
+        {% csrf_token %}
+        <a href="{% url 'govproject.GovernmentProjectDetailView' object.slug %}" class="btn btn-primary">Cancel</a>
+        <input type="hidden" name="delete" value="1">
+        <input type="submit" value="Yes" class="btn btn-secondary">
+    </form>
+{% endblock %}
