@@ -40,7 +40,10 @@
 {% block content %}
     {{ block.super }}
     <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
-    <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-light pull-right">Edit project</a>
+    {% if perms.sites.frontend_access %}
+        <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-light pull-right">
+            <span class="oi oi-pencil"></span> Edit project</a>
+    {% endif %}
 
     <h3>{{ object.title }}</h3>
     <p>
@@ -97,7 +100,9 @@
                           {% endfor %}
                       </ul>
                       {% if form %}
-                      <a data-toggle="collapse" href="#create-report-form-container" aria-expanded="false">Create a progress report</a>
+                      {% if perms.sites.frontend_access %}
+                        <a data-toggle="collapse" href="#create-report-form-container" aria-expanded="false">Create a progress report</a>
+                      {% endif %}
                       <div id="create-report-form-container" class="collapse">
                           <hr>
                           <form action="." method="post">{% csrf_token %}
@@ -111,15 +116,17 @@
           </div>
           <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
               <div class="row justify-content-center">
-                  <form id="media-form" action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}"
-                        class="col-6"
-                        method="post"
-                        enctype="multipart/form-data">{% csrf_token %}
-                      <!--{% bootstrap_form media_form %}-->
-                      {{ media_form.as_p }}
-                      <input type="hidden" name="accepts" value="media">
-                      <button type="submit" class="btn btn-primary pull-right">Upload image</button>
-                  </form>
+                  {% if perms.sites.frontend_access %}
+                      <form id="media-form" action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}"
+                            class="col-6"
+                            method="post"
+                            enctype="multipart/form-data">{% csrf_token %}
+                          <!--{% bootstrap_form media_form %}-->
+                          {{ media_form.as_p }}
+                          <input type="hidden" name="accepts" value="media">
+                          <button type="submit" class="btn btn-primary pull-right">Upload image</button>
+                      </form>
+                  {% endif %}
               </div>
               <div class="row">
                   {% for media_file in object.media_files.all %}
