@@ -12,9 +12,14 @@ from django_tables2.views import SingleTableMixin
 from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
-from .forms import GovernmentProjectCreateForm, ProgressReportForm, ProjectMediaForm
+from .forms import (
+    GovernmentProjectCreateForm,
+    ProgressReportForm,
+    ProjectMediaForm,
+    ProgressReportChangeStatusForm,
+)
 from .filtersets import GovernmentProjectFilter
-from .models import GovernmentProject, Region
+from .models import GovernmentProject, Region, ProgressReport
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
 
@@ -102,11 +107,14 @@ class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["progress_reports"] = (
+        progress_reports = (
             self.get_object()
             .progress_reports.exclude(when_start__isnull=True)
             .order_by("-when_start", "-timestamp")
         )
+        if not self.request.user.has_perm("sites.frontend_access"):
+            progress_reports = progress_reports.filter(status=ProgressReport.APPROVED)
+        context["progress_reports"] = progress_reports
         context["media_form"] = ProjectMediaForm(initial={"owner": self.request.user})
         return context
 
@@ -163,3 +171,27 @@ class ProjectMediaFormView(CreateView):
 
     def get_success_url(self):
         return self.project.url
+
+
+class ChangeStatusMixin(SuccessMessageMixin):
+    model = ProgressReport
+    form_class = ProgressReportChangeStatusForm
+    template_name = "govproject/reports_change_status.html"
+
+    def get_success_url(self):
+        return self.object.project_url + "#progress"
+
+    def get_success_message(self, cleaned_data):
+        return "Report {} is getting {}!".format(
+            self.object.pk, self.object.get_status_display().lower()
+        )
+
+
+class ReportVerifyView(ChangeStatusMixin, UpdateView):
+    queryset = ProgressReport.objects.filter(status=ProgressReport.INITIAL)
+    extra_context = {"user_action": "verify", "next_status": ProgressReport.VERIFIED}
+
+
+class ReportApproveView(ChangeStatusMixin, UpdateView):
+    queryset = ProgressReport.objects.filter(status=ProgressReport.VERIFIED)
+    extra_context = {"user_action": "approve", "next_status": ProgressReport.APPROVED}
