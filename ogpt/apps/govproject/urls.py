@@ -22,6 +22,11 @@ urlpatterns = [
                     name="govproject.ProjectMediaFormView",
                 ),
                 path(
+                    "import/",
+                    views.ProjectImportView.as_view(),
+                    name="govproject.ProjectImportView",
+                ),
+                path(
                     "<slug:slug>/edit/",
                     views.GovernmentProjectEditView.as_view(),
                     name="govproject.GovernmentProjectEditView",
