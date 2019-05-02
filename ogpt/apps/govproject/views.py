@@ -36,7 +36,7 @@ class GovernmentProjectListView(
     FilterView,
     generics.GenericAPIView,
 ):
-    queryset = GovernmentProject.objects.filter(removed=False)
+    queryset = GovernmentProject.objects.filter(removed=False, is_draft=False)
     serializer_class = GovernmentProjectSerializer
     renderer_classes = default_renderer_classes
     template_name = "govproject/projects_list.html"
@@ -103,7 +103,10 @@ class GovernmentProjectDetailView(SuccessMessageMixin, FormMixin, DetailView):
     form_class = ProgressReportForm
     prefix = "PR"
 
-    # success_message = "A progress report was added successfully"
+    def get_queryset(self):
+        if not self.request.user.has_perm("sites.frontend_access"):
+            return self.queryset.filter(is_draft=False)
+        return self.queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
