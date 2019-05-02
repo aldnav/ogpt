@@ -54,9 +54,10 @@ class GovernmentProject(models.Model):
         "ProjectMedia",
         related_name="projects",
         help_text="Attached media files to the project",
-        null=True,
         blank=True,
     )
+    # FIXME: Only used for imported files without necessarily making it public
+    is_draft = models.BooleanField(default=False, help_text="")
     # Soft delete of Government Project data
     removed = models.BooleanField(default=False, help_text="Mark project as removed")
 
