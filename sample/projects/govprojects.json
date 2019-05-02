@@ -1,0 +1,603 @@
+[
+  {
+    "model": "govproject.governmentproject",
+    "pk": 1,
+    "fields": {
+      "title": "Modernization of Gov. Celestino Gallares Memorial Hospital Project",
+      "description": "The proposed modernization of the GCGMH will involve:\r\na. Transfer to a new 5-hectare Provincial Government lot in Bgy. Malayo Norte, Municipality of Cortez, Bohol\r\nb. Expansion of hospital to 500-bed medical center (old: 225-bed capacity)\r\nc. Site development, warehouse building, medical equipment, IT systems.",
+      "total_project_cost": 2219320000.0,
+      "implementing_agency": 3,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 1,
+      "slug": "a38487ac-7a69-46e4-a903-fbcb7eacb496",
+      "removed": false,
+      "administrative_area": [
+        1
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 2,
+    "fields": {
+      "title": "Eastern Visayas Regional Medical Center Modernization Project",
+      "description": "\"The modernization of this regional medical center is a needed investment in order for Eastern Visayas, as one of the poorest regions of the country, to catch up on the Millennium Development Goals of improving maternal health and decreasing infant mortality especially for indigent households.\r\n\r\nThe modernization of the EVRMC will involve:\r\na. Expansion of hospital to 500-bed capacity medical center  (old: 325 bed capacity)\r\nb. Transfer to new site: Barangay Cabalawan, Tacloban City 31,123sqm (old: 12,876 sqm)\r\nc. New IT System: computerization back and front office systems, finance, personnel, etc.\r\nd. New Hospital with Medical Equipment (e.g., CT scan, Laparoscopic Tower, endoscopy, etc.).\"",
+      "total_project_cost": 2396750000.0,
+      "implementing_agency": 3,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 1,
+      "slug": "eb75b799-8789-4486-961b-a006ae47c04c",
+      "removed": false,
+      "administrative_area": [
+        2
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 3,
+    "fields": {
+      "title": "Improvement/ Widening of General Luis Road (Quezon City to Valenzuela City) Project",
+      "description": "The project will improve the road condition and ease traffic flow in the 8.89-kilometer General Luis-Kaybiga-Polo-Novaliches Road, which runs from Quirino Highway in Quezon City to General MacArthur Highway in Valenzuela City.\r\n\r\nThe project involves widening of the following road sections with two (2) lanes to four (4) lanes and intermittent sections (mostly at intersections) with four (4) lanes to six (6) lanes: 1) Quirino Highway to Mindanao Ave. Ext. Intersection; 2) Mindanao Ave. Ext. Intersection to North Luzon Expressway (NLEx) Valenzuela Interchange; 3) NLEX Valenzuela Interchange to Gen. MacArthur Highway. It shall also improve the condition of the undivided carriageway from \"\"fair\"\" to \"\"good\"\" condition.",
+      "total_project_cost": 2956430000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 1,
+      "slug": "09b5fdec-6e78-4cd9-a6f4-857761ef2459",
+      "removed": false,
+      "administrative_area": [
+        3,
+        4
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 4,
+    "fields": {
+      "title": "Bicol International Airport Project    + Proposed Increase in Passenger Terminal Building (PTB) Area of Bicol International Airport Project",
+      "description": "The project will involve the construction of a new domestic-Principal Class 1[1] airport of international standards in Daraga, Alabay to replace the existing Legazpi Airport due to its limitations and safety concerns. It involves the following:\r\n  a. Construction of landside and airside facilities;\r\n  b. Passenger and cargo terminal buildings and related facilities/equipment;\r\n  c. Security and navigational aids equipment;\r\n  d. Detailed engineering design; and\r\n  e. Land acquisition for the airport compound.",
+      "total_project_cost": 4798620000.0,
+      "implementing_agency": 5,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 1,
+      "slug": "cb423552-68fa-407a-9d55-04583ce92ae0",
+      "removed": false,
+      "administrative_area": [
+        5
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 5,
+    "fields": {
+      "title": "Malitubog-Maridagao Irrigation Project, Stage 2",
+      "description": "The project is located in the North Cotabato and Maguindanao areas, which are potential rice baskets in Mindanao, and will irrigate almost 10,000 hectares of land in 56 conflict-affected areas. Intended to contribute to sustained peace and order, it will cover the construction of three major service areas, which are in upper and lower Malitubog, and the Pagalungan extension area.\r\n\r\nIn 2016, NIA proposed a change in project cost and scope. The change includes an increase in the design area and a decrease in total cost from the NEDA Board-approved PhP7.0 billion in 2010 to PhP5.4 billion.",
+      "total_project_cost": 5444840000.0,
+      "implementing_agency": 6,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 1,
+      "slug": "8edfb851-2bcc-41dc-816c-81655f443d71",
+      "removed": false,
+      "administrative_area": [
+        6,
+        7
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 6,
+    "fields": {
+      "title": "Improving Growth Corridors in Mindanao Road Sector Project",
+      "description": "The project involves the upgrading of seven (7) roads (gravel to concrete) with total of 236.5 kms, and one (1) road widening of a 40km segment with slope protection, to provide more direct routes and open areas for development in Mindanao, and business process innovation.",
+      "total_project_cost": 25257220000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "74f726c4-723b-4054-baae-fba79e6202ca",
+      "removed": false,
+      "administrative_area": [
+        8
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 7,
+    "fields": {
+      "title": "Scaling-Up of the Second Cordillera Highlands Agricultural Resources Management Project (CHARMP2)",
+      "description": "The project scaling up will cover 18 new barangays in 18 municipalities covered by the ongoing CHARMP 2 in the Cordillera Region.  Also, the Social Mobilization and Participatory Investment Planning component of the project has additional activities to be implemented in the 9 barangays already covered under CHARMP 2.  Project components include:\r\n\r\na. Social Mobilization and Participatory Investment Planning;\r\nb. Agroforestry Development;\r\nc. Agriculture Agribusiness and Income Generating Activities (AAIGA); and\r\nd. Rural Infrastructure Development (RID)",
+      "total_project_cost": 601090000.0,
+      "implementing_agency": 7,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "c0f270ef-c39b-4762-a91e-26aaa5582ae4",
+      "removed": false,
+      "administrative_area": [
+        9
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 8,
+    "fields": {
+      "title": "Education Pathways to Peace in Conflict-Affected Areas of Mindanao (PATHWAYS)",
+      "description": "The Program will develop institutional capacity and strengthen critical systems essential for improving equitable access to and the quality of educational services in the primary grade levels (K-3) in the ARMM. The Program has five components: \r\n\r\na. Institutional strengthening;\r\nb. Curriculum, Learning, and Delivery;\r\nc. Teacher and Teaching Quality;\r\nd. Policy, Planning, and Data Management; and\r\ne. Governance, Management, and Program Operations.",
+      "total_project_cost": 3465000000.0,
+      "implementing_agency": 8,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "8b2a1fee-c8d8-4451-9f49-0560a38b18a4",
+      "removed": false,
+      "administrative_area": [
+        6
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 9,
+    "fields": {
+      "title": "Infrastructure Preparation and Innovation Facility",
+      "description": "The IPIF is a facility that will support project development and implementation of key infrastructure projects. IPIF support will cover such aspects as:\r\n\r\n1.        Feasibility assessment, feasibility study;\r\n2.        Detailed engineering design, including safeguards, project structure, economic analysis, financial assessment, procurement plan and implementation arrangements;\r\n3.        Preparation of procurement documents ready for tendering; and\r\n4.        Due diligence reviews of feasibility studies and detailed engineering designs.",
+      "total_project_cost": 7919200000.0,
+      "implementing_agency": 9,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "eaa198af-8ba0-43d5-8310-98ef63f88d6e",
+      "removed": false,
+      "administrative_area": [
+        10
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 10,
+    "fields": {
+      "title": "Request for 18-month validity extension of ADB Loan for the Road Improvement and Institutional Development Project (RIIDP)",
+      "description": "DPWH is requesting for an 18-month loan validity extension (Second revised and final extension) of the ADB loan from June 30, 2017 to December 30, 2019. The Project involves: (a) improvement/reconstruction of 11 road sections (10 contract packages) along nine national roads with a total length of about 339.804 km under the Asset Preservation (AP) component; (b) conduct of Detailed Engineering Designs (DED) for AP and Road rehabilitation/improvement (RI) of 14 road sections; and, (c) Institutional Capacity Development (ICD) in support of DPWH\u2019s mandate and development objectives.",
+      "total_project_cost": 6934680000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "c98563ee-1f6e-4534-b557-d4e8df503807",
+      "removed": false,
+      "administrative_area": [
+        10
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 11,
+    "fields": {
+      "title": "Priority Bridges under the Pasig River, Marikina River and Manggahan Flood Bridges Construction Project (Binondo-Intramuros and Estrella-Pantaleon Bridges)",
+      "description": "Binondo-Intramuros Bridge. Construction of a Steel Bowstring Arch Bridge with intersecting reclining arches supporting a 4-lane deck of approximately 725 lineal meters to connect Intramuros side (at Solana Street and Riverside Drive) and Binondo side (at San Fernando Street with a viaduct over the creek adjacent to Muelle del Binondo) \r\n\r\nEstrella-Pantaleon Bridge. Replacement of the existing 2-lane bridge by constructing a new 4-lane bridge to increase road network capacity connecting Makati City at Rockwell Center and Mandaluyong City at Barangka Ibaba.",
+      "total_project_cost": 5983010000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "ff864e24-e033-4d8d-9e16-642841fe2f8f",
+      "removed": false,
+      "administrative_area": [
+        3
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 12,
+    "fields": {
+      "title": "Change in Scope, Cost and Financing Arrangements for the Arterial Road Bypass Project Phase II",
+      "description": "DPWH proposed the inclusion of the detailed design and construction works for the widening into four lanes of the Angat Bridge and its approach roads, and a smaller bridge, in the scope of the ongoing ARBP Phase II.\r\n\r\nTo enable DPWH to fast-track the implementation of the additional scope of works by utilizing available financing under the current PHP-250, DPWH proposed to finance the implementation of the scope of works (i.e., widening as approved under ARBP Phase III) using the projected JpY574.07 million savings from the ARBP Phase II loan, and a supplemental loan to be requested from JICA amounting to JpY2,324 million.",
+      "total_project_cost": 4364260000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "0be02bd1-7601-4c75-a695-cb4a234b82a7",
+      "removed": false,
+      "administrative_area": [
+        4
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 13,
+    "fields": {
+      "title": "Cavite Industrial Area Flood Risk Management Project (CIA-FRMP)",
+      "description": "The project area is about 151.5 square kilometers and involves the (i) Improvement of the San Juan River channel, and (ii) Improvement of drainage for Maalimango Creek.",
+      "total_project_cost": 9989930000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "d9d3e496-94b1-4361-84ed-19d255b3ddfc",
+      "removed": false,
+      "administrative_area": [
+        11
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 14,
+    "fields": {
+      "title": "Request for Extension of the Loan Validity and Implementation Period of the KEXIM-EDCF Loan for the Construction Samar Pacific Coastal Road Project, Northern Samar",
+      "description": "The DPWH requested for a 24-month loan validity extension and implementation schedule and change of scope of the project as follows: \r\na. Unpaved section: decrease from 14.872km to 11.30km\r\nb. Simora Bridge: increase from 140 lm to 161 lm\r\nc. Jangtud Bridge: increase from 30lm to 31lm\r\nd. Replacement of Pinaculan Bridge (50lm)with Jangtud 2 Bridge (69 lm)",
+      "total_project_cost": 1032710000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "7a3649a9-7032-41d8-befa-9822e96e9816",
+      "removed": false,
+      "administrative_area": [
+        2
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 15,
+    "fields": {
+      "title": "Metro Manila Flood Management Project (MMFMP), Phase I",
+      "description": "This project includes the rehabilitation of pumping stations located in Manila, Pasay, Taguig, Makati, and Malabon through the replacement of pumps, and the construction of new pumping stations in Manila, Pasay, Pasig, Mandaluyong, San Juan, Caloocan, Valenzuela, and Quezon City. It will also minimize solid waste in waterways to reduce flood risks. The project also involves participatory housing and resettlement.  The project has the following components:\r\n \r\na. Rehabilitation of 36 pumping stations through replacement of pumps and construction of 20 new pumping stations;\r\nb. Minimize solid waste in waterways;\r\nc. Participatory housing and resettlement; and \r\nd. Project management, support and coordination.",
+      "total_project_cost": 24334200000.0,
+      "implementing_agency": 4,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "0f333a0b-bc59-404c-beff-91471576f952",
+      "removed": false,
+      "administrative_area": [
+        3
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 16,
+    "fields": {
+      "title": "New Communications, Navigation and Surveillance/Air Traffic Management (CNS/ATM) Systems Development Project: 30-Month Loan Validity Extension and Reallocation of Funds",
+      "description": "The project involves the following components:\r\n\r\nPackage 1 \u2013 Construction of Air Traffic Management (ATM) Automation System and construction of the Manila ATM Center Building in Pasay City near NAIA\r\nPackage 2 \u2013 Installation of the Communications equipment and surveillance equipment in the 4 radar sites (Tagaytay, Palawan, Zamboanga, and Davao)\r\n\r\nThe DOTr is requesting a 30-month loan validity extension from May 2017 to November 2019, and reallocation of PhP1,430.66 million from \"\"Contingencies\"\" to other components of the project.",
+      "total_project_cost": 10869290000.0,
+      "implementing_agency": 5,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "404930ee-0229-4822-8f3d-53735aa5cce3",
+      "removed": false,
+      "administrative_area": [
+        3,
+        8,
+        11,
+        12,
+        13
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 17,
+    "fields": {
+      "title": "Increase in Cost of the Cebu Bus Rapid Transit (BRT)",
+      "description": "The DOTr is requesting for an increase in project cost for the project. The Cebu BRT Project will establish and implement a BRT system over a 22.96-kilometer (km) corridor that traverses through Cebu City\u2019s central business district (CBD), from Bulacao in the South West and Talamban in the North East.",
+      "total_project_cost": 16309110000.0,
+      "implementing_agency": 5,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "fb31e7b7-f035-4a54-b4a2-0659830d66a2",
+      "removed": false,
+      "administrative_area": [
+        1
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 18,
+    "fields": {
+      "title": "\"New Bohol (Panglao) Airport Construction and Sustainable Environment Protection Project    + Change in Scope of the New Bohol Airport Construction and Sustainable Environment Protection Project (NBACSEPP)  + Request for Additional Financing (Supplemental",
+      "description": "(Project originally approved during Aquino Administration.  Change in Project Scope approved during Duterte Administration)\r\n\r\nDOTr Proposal in 2018:\r\nSupplemental loan of about PhP1,231 million from JICA, to address the financing shortfall for the civil works component of the project. The financing shortfall was brought about by foreign exchange fluctuation from 2012 to 2016 and the increase in cost of construction works in CY 2017.\r\n\r\nDOTr proposal in 2016:\r\na. Extension of runway (2 km to 2.5 km); \r\nb. Changes in PTB from single-storey to two-storeys with Passenger Boarding Bridges and expansion in floor area from approximately 8,400 square meters to approximately 13,300 square meters; and \r\nc. Increase in total project cost from PhP7,440.29 million to PhP7,772.91 million\r\n......................................................... \r\n The scope of the project includes:\r\n  \u00b7 ROW acquisition\r\n  \u00b7 Landside Facilities (vehicle parking area, drainage system, access roads, etc.)\r\n  \u00b7 Airside facilities (runway, aircraft parking area, taxiways, etc.)\r\n  \u00b7 Building and Other Structures (passenger terminal bldg, admin bldg, air traffic control tower, etc.)\r\n  \u00b7 Airport Utilities (water supply, electrical supply, etc.)\r\n  \u00b7 Detailed Engineering Design\r\n  \u00b7 Visual and Navigational Aids for Precision Category I airport",
+      "total_project_cost": 8914670000.0,
+      "implementing_agency": 5,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "89639ef1-6239-4a11-8650-ba2fefced571",
+      "removed": false,
+      "administrative_area": [
+        1
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 19,
+    "fields": {
+      "title": "Maritime Safety Capability Project II",
+      "description": "(Project originally approved during Aquino Administration.  Change in Project Scope approved during Duterte Administration)\r\n\r\nDOTr-PCG Proposed Changes:\r\na. Change in title from Maritime Safety Capability Project II as submitted by the DOTr-PCG and approved by the NEDA Board/ICC to Maritime Safety Capability Improvement Project for the Philippine Coast Guard, Phase II as reflected in the Minutes of Discussion (MOD); \r\nb. Increase in cost by about 63% from PhP4,922.59 million, as approved by the ICC and confirmed by the NEDA Board, to PhP8,017.41 million* [Official Development Assistance (ODA) \u2013 Japan International Cooperation Agency (JICA)]; \r\nc. Change in implementation period from 2016-2019 to 2016-2021. The delivery of the two vessels is scheduled in November 2020 and March 2021; and\r\nd. Change in technical specifications of vessels.\r\n..............................................................................\r\nIt will involve the acquisition of two (2) heavy weather, high endurance Multi-Role Response Vessels (MRRVs) for the PCG.\r\nThe acquisition of 80 to 125-m category as well as 35 to 45-m category MRRV is identified as top priority (i.e., for immediate implementation) in the PCG Updated 15-Year Capability Development Program (15YCDP). The procurement of ten (10) 40-m MRRVs under Phase 1 and two (2) 94-m MRRVs under this project (Phase 2) is consistent with the asset acquisition program of PCG under the Updated 15YCDP.",
+      "total_project_cost": 8017410000.0,
+      "implementing_agency": 5,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "ef63cb45-ce31-4a58-92ad-ac34e7f86b90",
+      "removed": false,
+      "administrative_area": [
+        10
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.governmentproject",
+    "pk": 20,
+    "fields": {
+      "title": "Australia Awards and Alumni Engagement Program \u2013 Philippines",
+      "description": "The program is designed to succeed the Philippines-Australia Human Resource and Organizational Development Facility (PAHRODF) which has been the Australian Government's flagship program to support human resource management, capacity building and organizational development in the Philippines since 2010. The AAAEP will build on the gains made, and lessons learned in the course of the implementation of the PAHRODF by continuing to target scholarships, short courses and fellowships to key priority sectors in both the public and private sector.",
+      "total_project_cost": 1194890000.0,
+      "implementing_agency": 10,
+      "implementation_period": null,
+      "implementation_from": null,
+      "implementation_to": null,
+      "funding_source": 2,
+      "slug": "9729813a-d38c-451b-855e-33af5dd5863a",
+      "removed": false,
+      "administrative_area": [
+        10
+      ],
+      "media_files": []
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 3,
+    "fields": {
+      "name": "Department of Health",
+      "shortname": "DOH"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 4,
+    "fields": {
+      "name": "Department of Public Works and Highways",
+      "shortname": "DPWH"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 5,
+    "fields": {
+      "name": "Department of Transportation",
+      "shortname": "DOTr"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 6,
+    "fields": {
+      "name": "National Irrigation Administration",
+      "shortname": "NIA"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 7,
+    "fields": {
+      "name": "Department of Agriculture",
+      "shortname": "DA"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 8,
+    "fields": {
+      "name": "Department of Education",
+      "shortname": "DepEd"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 9,
+    "fields": {
+      "name": "Department of Finance",
+      "shortname": "DOF"
+    }
+  },
+  {
+    "model": "govproject.agency",
+    "pk": 10,
+    "fields": {
+      "name": "National Economic and Development Authority",
+      "shortname": "NEDA"
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 1,
+    "fields": {
+      "name": "Region VII",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 2,
+    "fields": {
+      "name": "Region VIII",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 3,
+    "fields": {
+      "name": "NCR",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 4,
+    "fields": {
+      "name": "Region III",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 5,
+    "fields": {
+      "name": "Region V",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 6,
+    "fields": {
+      "name": "ARMM",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 7,
+    "fields": {
+      "name": "Region XII",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 8,
+    "fields": {
+      "name": "Region IX",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 9,
+    "fields": {
+      "name": "CAR",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 10,
+    "fields": {
+      "name": "All",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 11,
+    "fields": {
+      "name": "Region IV-A",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 12,
+    "fields": {
+      "name": "Region IV-B",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.region",
+    "pk": 13,
+    "fields": {
+      "name": "Region XI",
+      "lat": null,
+      "lng": null
+    }
+  },
+  {
+    "model": "govproject.fundingsource",
+    "pk": 1,
+    "fields": {
+      "name": "Local Financing"
+    }
+  },
+  {
+    "model": "govproject.fundingsource",
+    "pk": 2,
+    "fields": {
+      "name": "ODA"
+    }
+  }
+]
