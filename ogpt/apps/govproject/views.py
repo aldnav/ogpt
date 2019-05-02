@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, FormView
 from django.views.generic.edit import FormMixin
 from django.shortcuts import get_object_or_404
 
@@ -19,9 +19,10 @@ from .forms import (
     ProgressReportChangeStatusForm,
 )
 from .filtersets import GovernmentProjectFilter
-from .models import GovernmentProject, Region, ProgressReport
+from .models import GovernmentProject, Region, ProgressReport, ImportJob
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
+from .forms import ImportFileForm, DivErrorList
 
 from apps.django_tables_extensions.export import SerializerExportMixin
 
@@ -198,3 +199,21 @@ class ReportVerifyView(ChangeStatusMixin, UpdateView):
 class ReportApproveView(ChangeStatusMixin, UpdateView):
     queryset = ProgressReport.objects.filter(status=ProgressReport.VERIFIED)
     extra_context = {"user_action": "approve", "next_status": ProgressReport.APPROVED}
+
+
+class ProjectImportView(FormView):
+    template_name = "govproject/project_import.html"
+    form_class = ImportFileForm
+
+    def get_form_kwargs(self):
+        kwargs = super(ProjectImportView, self).get_form_kwargs()
+        kwargs.update(error_class=DivErrorList)
+        return kwargs
+
+    def get_success_url(self):
+        return self.request.path
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(import_job=ImportJob.objects.last())
+        return context

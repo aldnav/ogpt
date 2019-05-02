@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm, ValidationError
-from .models import GovernmentProject, ProgressReport, ProjectMedia
+from .models import GovernmentProject, ProgressReport, ProjectMedia, ImportJob
+from .importer import importer
 
 
 class GovernmentProjectCreateForm(ModelForm):
@@ -62,3 +63,36 @@ class ProgressReportChangeStatusForm(ModelForm):
                 _("Invalid status: %(value)"), params={"value": status}
             )
         return status
+
+
+from django.utils.html import format_html, format_html_join
+
+
+class DivErrorList(forms.utils.ErrorList):
+    def __str__(self):
+        return self.as_divs()
+
+    def as_divs(self):
+        if not self:
+            return ""
+        return format_html(
+            '<div class="alert alert-danger alert-dismissible fade show" role="alert">{}</div>',
+            format_html_join("", "<div>{}</div>", ((e,) for e in self)),
+        )
+
+
+class ImportFileForm(forms.Form):
+    file = forms.FileField(widget=forms.FileInput(attrs={"accept": ".csv"}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        data_file = cleaned_data.get("file")
+        data_file.seek(0)
+        import_response = importer.import_projects_from_csv(data_file)
+        import_job = ImportJob.objects.last()
+        if import_job is None:
+            import_job = ImportJob.objects.create()
+        import_job.data = import_response
+        import_job.save()
+        for error in import_response["problematic"]:
+            self.add_error("file", "Line {line} : {exception}".format_map(error))
