@@ -1,0 +1,32 @@
+{% extends "govproject/projects_base.html" %}
+
+{% block content %}
+    {{ block.super }}
+    <h2>Import projects</h2>
+    {% if import_job %}
+        <div class="card shadow-none p-3 mb-5 bg-light rounded">
+            <div class="card-header">
+                <h5><b>Import summary</b></h5>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-2">Created</dt>
+                    <dd class="col-2">{{ import_job.data.created|length|default:"No created imports" }}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-2">Skipped</dt>
+                    <dd class="col-2">{{ import_job.data.skipped|length|default:"No skipped imports" }}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-2">Problematic</dt>
+                    <dd class="col-2">{{ import_job.data.problematic|length|default:"No problematic imports" }}</dd>
+                </dl>
+            </div>
+        </div>
+    {% endif %}
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Import projects" class="btn">
+    </form>
+{% endblock %}

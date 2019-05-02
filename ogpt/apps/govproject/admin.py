@@ -8,6 +8,7 @@ from .models import (
     FundingSource,
     ProgressReport,
     ProjectMedia,
+    ImportJob,
 )
 
 
@@ -43,4 +44,9 @@ class ProgressReport(admin.ModelAdmin):
 
 @admin.register(ProjectMedia)
 class ProjectMediaAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ImportJob)
+class ImportJobAdmin(admin.ModelAdmin):
     pass

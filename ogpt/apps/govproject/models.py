@@ -308,3 +308,10 @@ class ProjectMedia(models.Model):
 
     def __str__(self):
         return self.media.path
+
+
+from django.contrib.postgres.fields import JSONField
+
+
+class ImportJob(models.Model):
+    data = JSONField(null=True)

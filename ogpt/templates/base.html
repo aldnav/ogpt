@@ -34,7 +34,8 @@
                     <i class="now-ui-icons ui-1_simple-add"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{% url 'govproject.GovernmentProjectCreateView' %}">Add New Project</a>
+                    <a href="{% url 'govproject.GovernmentProjectCreateView' %}" class="dropdown-item">Add New Project</a>
+                    <a href="{% url 'govproject.ProjectImportView' %}" class="dropdown-item">Import Projects</a>
                 </div>
               </li>
               {% endif %}
