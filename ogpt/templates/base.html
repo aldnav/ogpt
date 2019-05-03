@@ -9,7 +9,6 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/now-ui-kit.min.css' %}">
-        <link rel="stylesheet" href="{% static '/vendor/bootstrap-table.min.css' %}">
         <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}">
         <link rel="stylesheet" href="{% static '/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css' %}" rel="stylesheet">
         {% block extra_head %}
@@ -44,10 +43,12 @@
         </nav>
         <div class="container">
             {% for message in messages %}
-                <div class="alert alert-dismissible fade show alert-info alert-{{ message.tags }}" role="alert">
+                <div class="alert alert-dismissible fade show alert-{{ message.tags }}" role="alert">
                     {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">
+                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                          </span>
                     </button>
                 </div>
             {% endfor %}

@@ -1,6 +1,7 @@
 import csv
 import io
 from decimal import Decimal
+
 from apps.govproject.models import GovernmentProject
 
 
@@ -20,8 +21,13 @@ class Importer:
                 row["total_project_cost"] = Decimal(
                     row["total_project_cost"].replace(",", "")
                 )
-                project, is_created = GovernmentProject.objects.get_or_create(**row)
+                row_project_title = row.pop("title")
+                project, is_created = GovernmentProject.objects.get_or_create(
+                    title=row_project_title
+                )
                 if is_created:
+                    for field, value in row.items():
+                        setattr(project, field, value)
                     project.is_draft = True
                     project.save()
                     created.append(project.pk)

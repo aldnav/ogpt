@@ -2,8 +2,7 @@ import django_tables2 as tables
 
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.utils.html import mark_safe
-
-from .models import GovernmentProject
+from django.utils.translation import gettext_lazy as _
 
 
 class GovernmentProjectTable(tables.Table):
@@ -35,5 +34,6 @@ class GovernmentProjectTable(tables.Table):
 
     class Meta:
         attrs = {"id": "government-table"}
+        empty_text = _("No projects match")
 
     #     model = GovernmentProject
