@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm, ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from .importer import importer
 from .models import GovernmentProject, ProgressReport, ProjectMedia, ImportJob
@@ -9,7 +10,36 @@ class GovernmentProjectCreateForm(ModelForm):
     class Meta:
         model = GovernmentProject
         fields = "__all__"
-        exclude = ["media_files", "removed", "is_draft"]
+        exclude = [
+            "media_files",
+            "removed",
+            "is_draft",
+            "is_complete",
+            "completion_notes",
+        ]
+
+
+class CompletingProjectForm(ModelForm):
+    class Meta:
+        model = GovernmentProject
+        fields = ["is_complete", "completion_notes"]
+
+    # def clean_completion_notes(self):
+    #     progress_report = self.instance.progress_reports.last()
+    #     if len(self.cleaned_data.get('clean_completion_notes')) == 0 and progress_report is not None:
+    #         return progress_report.description
+    #     return self.cleaned_data.get('clean_completion_notes')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        is_complete = cleaned_data.get("is_complete")
+        if is_complete:
+            if not self.instance.progress_reports.exists():
+                raise ValidationError(
+                    _(
+                        "At least one progress report is required to mark the project as complete!"
+                    )
+                )
 
 
 class ProgressReportForm(ModelForm):
