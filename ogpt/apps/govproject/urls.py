@@ -43,6 +43,11 @@ urlpatterns = [
                     name="govproject.GovernmentProjectRemoveView",
                 ),
                 path(
+                    "<slug:slug>/mark-complete/",
+                    views.ProjectCompletingView.as_view(),
+                    name="govproject.ProjectCompletingView",
+                ),
+                path(
                     "<slug:slug>/",
                     views.GovernmentProjectDetailView.as_view(),
                     name="govproject.GovernmentProjectDetailView",

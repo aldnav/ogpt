@@ -20,7 +20,7 @@ from .forms import (
     ProjectMediaForm,
     ProgressReportChangeStatusForm,
 )
-from .forms import ImportFileForm, DivErrorList
+from .forms import ImportFileForm, DivErrorList, CompletingProjectForm
 from .models import GovernmentProject, Region, ProgressReport, ImportJob
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
@@ -76,6 +76,7 @@ class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):
 
 class GovernmentProjectEditView(SuccessMessageMixin, UpdateView):
     model = GovernmentProject
+    queryset = GovernmentProject.objects.filter(is_complete=False)
     form_class = GovernmentProjectCreateForm
     template_name = "govproject/projects_create.html"
     success_message = "%(title)s edited!"
@@ -237,3 +238,13 @@ class ProjectImportView(FormView):
         context = super().get_context_data(**kwargs)
         context.update(import_job=ImportJob.objects.last())
         return context
+
+
+class ProjectCompletingView(SuccessMessageMixin, UpdateView):
+    template_name = "govproject/project_completing.html"
+    form_class = CompletingProjectForm
+    queryset = GovernmentProject.objects.filter(is_complete=False)
+    success_message = "Project is marked complete!"
+
+    def get_success_url(self):
+        return self.object.url

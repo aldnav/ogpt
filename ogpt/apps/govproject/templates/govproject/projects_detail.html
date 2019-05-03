@@ -1,6 +1,7 @@
 {% extends "govproject/projects_base.html" %}
 {% load bootstrap4 %}
 {% load humanize %}
+{% load i18n %}
 
 {% block extra_head %}
 <style>
@@ -40,16 +41,53 @@
 {% block content %}
     {{ block.super }}
     <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
-    {% if perms.sites.frontend_access %}
-        <div class="pull-right">
-            <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-primary">
-                <span class="oi oi-pencil"></span> Edit project {% if object.is_draft %}to publish{% endif %}</a>
-            <a href="{% url 'govproject.GovernmentProjectRemoveView' object.slug %}" class="btn btn-light">
-                <span class="oi oi-trash"></span></a>
+    {% if perms.sites.frontend_access and not object.is_complete %}
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="oi oi-menu"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{% url 'govproject.GovernmentProjectEditView' object.slug %}">
+                <span class="oi oi-pencil"></span>&nbsp;Edit project {% if object.is_draft %}to publish{% endif %}</a>
+            </a>
+            {% if not object.is_draft %}
+                <a class="dropdown-item" href="{% url 'govproject.ProjectCompletingView' object.slug %}">
+                    <span class="oi oi-check"></span>&nbsp;Mark complete</a>
+                </a>
+            {% endif %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'govproject.GovernmentProjectRemoveView' object.slug %}">
+                <span class="oi oi-trash"></span>&nbsp;Remove project
+            </a>
+          </div>
         </div>
+{#        <div class="pull-right sticky-top hide">#}
+{#            <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-primary">#}
+{#                <span class="oi oi-pencil"></span> Edit project {% if object.is_draft %}to publish{% endif %}</a>#}
+{#            {% if not object.is_draft %}#}
+{#                <form method="post">#}
+{#                    <input type="hidden" name="is_complete" value="true">#}
+{#                    <button class="btn btn-success" value="submit_and_mark_complete" name="submit" type="submit">#}
+{#                        <span class="oi oi-check"></span> {% trans "Mark project as complete" %}#}
+{#                    </button>#}
+{#                </form>#}
+{#            {% endif %}#}
+{#            <a href="{% url 'govproject.GovernmentProjectRemoveView' object.slug %}" class="btn btn-light">#}
+{#                <span class="oi oi-trash"></span></a>#}
+{#        </div>#}
     {% endif %}
 
     <h3>{{ object.title }}</h3>
+    <div class="project-markers">
+        {% if object.is_complete %}
+        <span class="badge badge-success">Complete</span>
+        {% else %}
+            <span class="badge badge-primary">{{ object.status }}</span>
+        {% endif %}
+        {% if object.is_draft %}
+        <span class="badge badge-secondary">Success</span>
+        {% endif %}
+    </div>
     <p>
         {{ object.description }}
     </p>
@@ -98,7 +136,7 @@
                           <li>
                               <span class="float-right">
                                   <a href="#">{{ progress_report.timeline_datetime.start }}</a>
-                                  {% if perms.sites.frontend_access and progress_report.next_status_url %}
+                                  {% if perms.sites.frontend_access and progress_report.next_status_url and not object.is_complete %}
                                     <a href="{{ progress_report.next_status_url }}" class="btn btn-sm btn-info btn-link p-0 m-0">
                                         <span class="oi oi-check"></span> {{ progress_report.next_status_verb }}
                                     </a>
@@ -110,7 +148,7 @@
                           <p>No progress report.</p>
                           {% endfor %}
                       </ul>
-                      {% if form %}
+                      {% if form and not object.is_complete %}
                       {% if perms.sites.frontend_access %}
                         <a data-toggle="collapse" href="#create-report-form-container" aria-expanded="false">Create a progress report</a>
                       {% endif %}
@@ -127,7 +165,7 @@
           </div>
           <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
               <div class="row justify-content-center">
-                  {% if perms.sites.frontend_access %}
+                  {% if perms.sites.frontend_access  and not object.is_complete %}
                       <form id="media-form" action="{% url 'govproject.GovernmentProjectDetailView' slug=object.slug %}"
                             class="col-6"
                             method="post"

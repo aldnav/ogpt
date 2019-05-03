@@ -1,11 +1,15 @@
 import uuid
 
-from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.db import models
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+
+class ModificationException(Exception):
+    pass
 
 
 class GovernmentProject(models.Model):
@@ -61,12 +65,30 @@ class GovernmentProject(models.Model):
     # Soft delete of Government Project data
     removed = models.BooleanField(default=False, help_text="Mark project as removed")
 
+    """ Business notes
+    To mark a project complete, the following conditions should apply:
+    - Project has at least one progress report
+    - Completion notes are optional
+    When a project is complete:
+    - No further modifications are allowed.
+    """
+    is_complete = models.BooleanField(
+        default=False, help_text="Mark the project as complete"
+    )
+    completion_notes = models.TextField(blank=True)
+
     class Meta:
         app_label = "govproject"
         ordering = ("pk",)
 
     def __str__(self):
         return self.title
+
+    # def save(self, force_insert=False, force_update=False, *args, **kwargs):
+    #     if not force_insert and not force_update:
+    #         if self.is_complete:
+    #             raise ModificationException("No further modifications allowed for complete projects")
+    #     super().save(*args, **kwargs)
 
     @property
     def implementation_time_info(self):
