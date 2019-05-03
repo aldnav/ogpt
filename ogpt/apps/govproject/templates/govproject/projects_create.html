@@ -13,7 +13,12 @@
                 {% if user_action == 'Edit' %}
                     <a href="{% url 'govproject.GovernmentProjectDetailView' object.slug %}" class="btn btn-secondary">Cancel</a>
                 {% endif %}
-                {% bootstrap_button "Save" button_type="submit" button_class="btn-primary pull-right" %}
+                <div class="pull-right">
+                    <button class="btn btn-primary" type="submit" name="submit">Save</button>
+                    {% if object.pk and object.is_draft %}
+                        <button class="btn btn-primary" type="submit" name="submit" value="submit_and_publish">Save and Publish</button>
+                    {% endif %}
+                </div>
             </form>
         </div>
     </div>

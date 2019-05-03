@@ -42,8 +42,8 @@
     <a href="{% url 'govproject.GovernmentProjectListView' %}" class="button">&#8592; Back to projects</a>
     {% if perms.sites.frontend_access %}
         <div class="pull-right">
-            <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-light">
-                <span class="oi oi-pencil"></span> Edit project</a>
+            <a href="{% url 'govproject.GovernmentProjectEditView' object.slug %}" class="btn btn-primary">
+                <span class="oi oi-pencil"></span> Edit project {% if object.is_draft %}to publish{% endif %}</a>
             <a href="{% url 'govproject.GovernmentProjectRemoveView' object.slug %}" class="btn btn-light">
                 <span class="oi oi-trash"></span></a>
         </div>
