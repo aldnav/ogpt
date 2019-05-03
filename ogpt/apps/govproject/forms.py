@@ -1,14 +1,15 @@
 from django import forms
 from django.forms import ModelForm, ValidationError
-from .models import GovernmentProject, ProgressReport, ProjectMedia, ImportJob
+
 from .importer import importer
+from .models import GovernmentProject, ProgressReport, ProjectMedia, ImportJob
 
 
 class GovernmentProjectCreateForm(ModelForm):
     class Meta:
         model = GovernmentProject
         fields = "__all__"
-        exclude = ["media_files", "removed"]
+        exclude = ["media_files", "removed", "is_draft"]
 
 
 class ProgressReportForm(ModelForm):

@@ -1,31 +1,29 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, UpdateView, FormView
 from django.views.generic.edit import FormMixin
-from django.shortcuts import get_object_or_404
-
 from django_filters.views import FilterView
 from django_tables2.paginators import LazyPaginator
 from django_tables2.views import SingleTableMixin
 from rest_framework import generics, mixins
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
+from apps.django_tables_extensions.export import SerializerExportMixin
+from .filtersets import GovernmentProjectFilter
 from .forms import (
     GovernmentProjectCreateForm,
     ProgressReportForm,
     ProjectMediaForm,
     ProgressReportChangeStatusForm,
 )
-from .filtersets import GovernmentProjectFilter
+from .forms import ImportFileForm, DivErrorList
 from .models import GovernmentProject, Region, ProgressReport, ImportJob
 from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
-from .forms import ImportFileForm, DivErrorList
-
-from apps.django_tables_extensions.export import SerializerExportMixin
-
 
 default_renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
 
@@ -56,6 +54,17 @@ class GovernmentProjectListView(
             admin_areas = Region.objects.filter(pk__in=selected_administrative_area)
         context["administrative_areas"] = admin_areas
         return context
+
+
+class GovernmentProjectDraftListView(GovernmentProjectListView):
+    extra_context = {
+        "announcement": _(
+            "* These are <b>draft</b> projects. Publish them individually."
+        )
+    }
+
+    def get_queryset(self):
+        return GovernmentProject.objects.filter(removed=False, is_draft=True)
 
 
 class GovernmentProjectCreateView(SuccessMessageMixin, CreateView):
@@ -211,6 +220,7 @@ class ProjectImportView(FormView):
         return kwargs
 
     def get_success_url(self):
+        messages.success(self.request, "Projects are being imported!")
         return self.request.path
 
     def get_context_data(self, **kwargs):

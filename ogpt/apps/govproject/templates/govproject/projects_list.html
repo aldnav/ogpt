@@ -5,6 +5,13 @@
 {% block content %}
     {{ block.super }}
     {% include "export_selected_form.html" %}
+    {% if announcement %}
+        <div class="row justify-content-center bg-light p-4">
+            <div>
+                {{ announcement|safe }}
+            </div>
+        </div>
+    {% endif %}
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row justify-content-end action-buttons">
