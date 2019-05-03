@@ -84,6 +84,16 @@ class GovernmentProjectEditView(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return self.object.url
 
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.request.POST.get("submit") == "submit_and_publish":
+            self.object.is_draft = False
+            self.object.save(update_fields=["is_draft"])
+            messages.info(
+                self.request, _("{0.title} is published!".format(self.object))
+            )
+        return super().form_valid(form)
+
 
 class GovernmentProjectRemoveView(DetailView):
     model = GovernmentProject
