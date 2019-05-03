@@ -1,8 +1,11 @@
 {% extends "govproject/projects_base.html" %}
+{% load i18n %}
 
 {% block content %}
     {{ block.super }}
     <h2>Import projects</h2>
+    <p><strong>NOTE:</strong> Imported projects are saved as <strong>drafts</strong> by default. Publish them individually
+        <a href="{% url 'govproject.GovernmentProjectDraftListView' %}" target="_blank">here</a>.</p>
     {% if import_job %}
         <div class="card shadow-none p-3 mb-5 bg-light rounded">
             <div class="card-header">
@@ -11,15 +14,39 @@
             <div class="card-body">
                 <dl class="row">
                     <dt class="col-2">Created</dt>
-                    <dd class="col-2">{{ import_job.data.created|length|default:"No created imports" }}</dd>
+                    <dd class="col-2">
+                        {% if import_job.data.created %}
+                            <a href="{% url 'govproject.GovernmentProjectDraftListView' %}?id={{ import_job.data.created|join:',' }}" target="_blank">
+                                {{ import_job.data.created|length }}
+                            </a>
+                        {% else %}
+                            {% trans "No created imports" %}
+                        {% endif %}
+                    </dd>
                 </dl>
                 <dl class="row">
                     <dt class="col-2">Skipped</dt>
-                    <dd class="col-2">{{ import_job.data.skipped|length|default:"No skipped imports" }}</dd>
+                    <dd class="col-2">
+                        {% if import_job.data.skipped %}
+                            <a href="{% url 'govproject.GovernmentProjectDraftListView' %}?id={{ import_job.data.skipped|join:',' }}" target="_blank">
+                                {{ import_job.data.skipped|length }}
+                            </a>
+                        {% else %}
+                            {% trans "No skipped imports" %}
+                        {% endif %}
+                    </dd>
                 </dl>
                 <dl class="row">
                     <dt class="col-2">Problematic</dt>
-                    <dd class="col-2">{{ import_job.data.problematic|length|default:"No problematic imports" }}</dd>
+                    <dd class="col-2">
+                        {% if import_job.data.problematic %}
+                            <a href="{% url 'govproject.GovernmentProjectDraftListView' %}?id={{ import_job.data.problematic|join:',' }}" target="_blank">
+                                {{ import_job.data.problematic|length }}
+                            </a>
+                        {% else %}
+                            {% trans "No problematic imports" %}
+                        {% endif %}
+                    </dd>
                 </dl>
             </div>
         </div>

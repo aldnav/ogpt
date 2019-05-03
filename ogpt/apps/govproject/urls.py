@@ -1,4 +1,5 @@
 from django.urls import include, path
+
 from . import views
 
 urlpatterns = [
@@ -11,6 +12,11 @@ urlpatterns = [
         "projects/",
         include(
             [
+                path(
+                    "drafts/",
+                    views.GovernmentProjectDraftListView.as_view(),
+                    name="govproject.GovernmentProjectDraftListView",
+                ),
                 path(
                     "create/",
                     views.GovernmentProjectCreateView.as_view(),
