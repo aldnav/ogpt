@@ -4,6 +4,7 @@
 
 {% block content %}
     {{ block.super }}
+    {% include "govproject/project_headlines.html" %}
     {% include "export_selected_form.html" %}
     {% if announcement %}
         <div class="row justify-content-center bg-light p-4">
@@ -21,8 +22,8 @@
                 <!--</div>-->
             </div>
             <div class="row d-block">
-                <div class="area-selector pull-left p-4">
-                    <div>Selected areas
+                <div class="area-selector pull-left p-4 col-7 text-break">
+                    <div class="text-break">Selected areas
                         {% for area in administrative_areas %}
                         <span class="badge badge-default">{{ area.name }}</span>
                         {% endfor %}
