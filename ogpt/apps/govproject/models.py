@@ -183,6 +183,12 @@ class Agency(models.Model):
     def __str__(self):
         return "{0.name} - {0.shortname}".format(self)
 
+    @property
+    def list_url(self):
+        return "{}?implementing_agency={}".format(
+            reverse("govproject.GovernmentProjectListView"), self.pk
+        )
+
 
 class ProjectLog(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
