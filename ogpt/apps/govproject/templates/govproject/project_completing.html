@@ -7,7 +7,7 @@
         {{ form.errors }}
         </div>
     {% endif %}
-    Mark project "{{ object.title }}" as complete?
+    Mark parject "{{ object.title }}" as complete?
     <form action="{% url 'govproject.ProjectCompletingView' object.slug %}" method="post">
         {% csrf_token %}
         <a href="{% url 'govproject.GovernmentProjectDetailView' object.slug %}" class="btn btn-secondary">Cancel</a>
