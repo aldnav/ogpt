@@ -26,6 +26,7 @@ from .serializers import GovernmentProjectSerializer
 from .tables import GovernmentProjectTable
 
 default_renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
+from django.db.models import Sum
 
 
 class GovernmentProjectListView(
@@ -53,6 +54,14 @@ class GovernmentProjectListView(
         else:
             admin_areas = Region.objects.filter(pk__in=selected_administrative_area)
         context["administrative_areas"] = admin_areas
+        headlines = dict(
+            count_admin_areas=Region.objects.count(),
+            count_projects=GovernmentProject.objects.exclude(is_draft=True).count(),
+            count_funds=GovernmentProject.objects.aggregate(
+                total_funds=Sum("total_project_cost")
+            )["total_funds"],
+        )
+        context.update(headlines)
         return context
 
 

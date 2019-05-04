@@ -1,0 +1,30 @@
+{% load humanize %}
+<style>
+    .scorecards .card {
+        background-color: teal;
+        color: ghostwhite;
+    }
+</style>
+<div class="d-flex justify-content-center scorecards">
+    <div class="card shadow-none border m-2 col-4">
+        <div class="card-body">
+            <h1 class="card-title">{{ count_admin_areas|intcomma }}</h1>
+            <h6 class="card-subtitle">Administrative Areas</h6>
+            <p class="card-text">Recorded projects are implemented within these areas</p>
+        </div>
+    </div>
+    <div class="card shadow-none border m-2 col-4">
+        <div class="card-body">
+            <h1 class="card-title">{{ count_projects|intcomma }}</h1>
+            <h6 class="card-subtitle">Projects</h6>
+            <p class="card-text">Approved, ongoing, and completed</p>
+        </div>
+    </div>
+    <div class="card shadow-none border m-2 col-4">
+        <div class="card-body">
+            <h1 class="card-title"> {{ count_funds|intword|title }} </h1>
+            <h6 class="card-subtitle">Funds for this year (PHP)</h6>
+            <p class="card-text">This is where your taxes go</p>
+        </div>
+    </div>
+</div>
