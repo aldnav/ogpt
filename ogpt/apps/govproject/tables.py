@@ -9,7 +9,9 @@ class GovernmentProjectTable(tables.Table):
     selected = tables.CheckBoxColumn(accessor="id", exclude_from_export=True)
     title = tables.Column("Project")
     # description = tables.Column(orderable=False)
-    implementing_agency = tables.Column()
+    implementing_agency = tables.TemplateColumn(
+        '{% if value %}<a href="{{ value.list_url }}" title="See projects of {{value}}">{{ value }}</a>{% else %}—{% endif%}'
+    )
     total_project_cost = tables.Column()
     funding_source = tables.Column("Source of funding", orderable=False)
     implementation_time_info = tables.Column("Implementation Period", orderable=False)
