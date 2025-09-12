@@ -202,7 +202,6 @@ class ProjectLog(models.Model):
     )
 
     def __str__(self):
-
         return "{0.timestamp} - {0.label} - {0.added_by.full_name}".format(self)
 
 
@@ -338,7 +337,7 @@ class ProjectMedia(models.Model):
         return self.media.path
 
 
-from django.contrib.postgres.fields import JSONField
+from django.db.models import JSONField
 
 
 class ImportJob(models.Model):

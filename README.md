@@ -1,22 +1,12 @@
-Open Government Project Tracker
----
+# Open Government Project Tracker
 
 CMSC 208 Software Engineering Project
 
 ![alt text](screen.png "Open Government Project Tracker")
 
+## Development
 
-# Development
-
-## Requirements
-
-The `requirements.txt` file is generated from the command
-`pipenv run pip freeze > requirements.txt`. **Do not manually edit `requirements.txt`.**
-
-Software packages:
-- SQLite
-- PostgreSQL
-- MySQL
+Read more at [docs/development.md](docs/development.md).
 
 Common setup:
 
@@ -24,21 +14,20 @@ Common setup:
 # Installation
 git clone git@github.com:aldnav/ogpt.git
 cd ogpt
-pipenv install
-pipenv shell  # virtualenv activated
+uv sync
+cp .env.template .env  # Update the .env file with the correct values
+cp ogpt/.pg_service.conf.template ogpt/.pg_service.conf  # Update the .pg_service.conf file with the correct values
+echo "127.0.0.1:5432:DBNAME:DBUSER:DBPASSWORD" > ogpt/.pgpass  # Update the .pgpass file with the correct values
 
-ENV=dev ./manage.py migrate
-ENV=dev ./manage.py collectstatic -l
-ENV=dev ./manage.py masterdata
+just migrate
 
-# Running the local server
-ENV=dev ./manage.py runserver 0.0.0.0:8000
+# Running the local server at http://localhost:8000
+just runserver-dev
 ```
 
-# Contributors
+## Contributors
 
 - Aldrin Navarro <aldrinnavarro16@gmail.com>
 - Raphael Elamparo <lrcelamparo@gmail.com>
 -
 -
-

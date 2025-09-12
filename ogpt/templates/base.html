@@ -1,65 +1,105 @@
-{% load staticfiles %}
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static '/vendor/now-ui-kit/assets/css/now-ui-kit.min.css' %}">
-        <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}">
-        <link rel="stylesheet" href="{% static '/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css' %}" rel="stylesheet">
-        {% block extra_head %}
-        {% endblock %}
-        <title>Open Government Project Tracker</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-          <div class="container">
-            <a class="navbar-brand" href="/">Open Government Project Tracker</a>
-            <ul class="navbar-nav ml-auto">
-              <li>
-                  <form action="" method="get" class="form search-form">
-                      <div class="input-group">
-                          <input type="search" name="title" class="form-control form-control-sm bg-light" placeholder="Search" value="{{ request.GET.title }}">
-                      </div>
-                  </form>
-              </li>
-              {% if perms.sites.frontend_access %}
-              <li class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="now-ui-icons ui-1_simple-add"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a href="{% url 'govproject.GovernmentProjectCreateView' %}" class="dropdown-item">Add New Project</a>
-                    <a href="{% url 'govproject.ProjectImportView' %}" class="dropdown-item">Import Projects</a>
-                </div>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
-        </nav>
-        <div class="container">
-            {% for message in messages %}
-                <div class="alert alert-dismissible fade show alert-{{ message.tags }}" role="alert">
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                          </span>
-                    </button>
-                </div>
-            {% endfor %}
-            {% block content %}
-            {% endblock %}
-        </div>
-        <script src="{% static '/vendor/jquery-3.3.1.slim.min.js' %}"></script>
-        <script src="{% static '/vendor/popper.min.js' %}"></script>
-        <script src="{% static '/vendor/now-ui-kit/assets/js/core/bootstrap.min.js' %}"></script>
-        <script src="{% static '/javascript/site.js' %}"></script>
-        {% block extra_footer %}
-        {% endblock %}
-    </body>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static '/vendor/now-ui-kit/assets/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/vendor/now-ui-kit/assets/css/now-ui-kit.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static '/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css' %}"
+    />
+    {% block extra_head %} {% endblock %}
+    <title>Open Government Project Tracker</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/">Open Government Project Tracker</a>
+        <ul class="navbar-nav ml-auto">
+          <li>
+            <form action="" method="get" class="form search-form">
+              <div class="input-group">
+                <input
+                  type="search"
+                  name="title"
+                  class="form-control form-control-sm bg-light"
+                  placeholder="Search"
+                  value="{{ request.GET.title }}"
+                />
+              </div>
+            </form>
+          </li>
+          {% if perms.sites.frontend_access %}
+          <li class="dropdown">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="now-ui-icons ui-1_simple-add"></i>
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a
+                href="{% url 'govproject.GovernmentProjectCreateView' %}"
+                class="dropdown-item"
+                >Add New Project</a
+              >
+              <a
+                href="{% url 'govproject.ProjectImportView' %}"
+                class="dropdown-item"
+                >Import Projects</a
+              >
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      {% for message in messages %}
+      <div
+        class="alert alert-dismissible fade show alert-{{ message.tags }}"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+          </span>
+        </button>
+      </div>
+      {% endfor %} {% block content %} {% endblock %}
+    </div>
+    <script src="{% static '/vendor/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.min.js' %}"></script>
+    <script src="{% static '/vendor/now-ui-kit/assets/js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static '/javascript/site.js' %}"></script>
+    {% block extra_footer %} {% endblock %}
+  </body>
 </html>
