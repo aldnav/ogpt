@@ -22,6 +22,7 @@ djangorestframework-stubs==0.4.2
 et-xmlfile==1.0.1
 identify==1.4.0
 importlib-metadata==0.8
+ipdb==0.11
 ipython==7.5.0
 ipython-genutils==0.2.0
 isort==4.3.15
