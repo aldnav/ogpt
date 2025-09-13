@@ -12,7 +12,7 @@ dependencies = [
     "djangorestframework>=3.16.1",
     "psycopg[binary]>=3.2.10",
     "rust-just>=1.42.4",
-    "tablib>=3.8.0",
+    "tablib[all]>=3.8.0",
 ]
 
 [dependency-groups]
