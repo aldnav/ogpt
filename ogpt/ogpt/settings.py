@@ -24,12 +24,13 @@ VAR_ROOT = os.path.abspath(
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "l&4!_ni_rzm58ev=fg%7t3ohpk!-@9k#hwbvl1ng8ds0h*s)^r"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Set ALLOWED_HOSTS from environment variable for security; default to localhost for development
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     "django_tables2",
     "django_filters",
     "bootstrap4",
-    "django_extensions",
+    # "django_extensions",  # Move to dev_settings
     "apps.govproject",
     "apps.django_tables_extensions",
 ]
@@ -90,40 +91,41 @@ WSGI_APPLICATION = "ogpt.wsgi.application"
 
 # Change the DATABASES index on the right to appropriate values:
 #    default: SQLite
-#    postgre: PostgreSQL
+#    postgres: PostgreSQL
 #    mysql: MySQL
-DB = "default"
+DB = "postgres"
 
 DATABASES = {
     "default": {  # DEFAULT: SQLite
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     },
-    "postgre": {  # PostgreSQL
+    "postgres": {  # PostgreSQL
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dbase",  # Production Database Name
-        "USER": "user",  # Database Username
-        "PASSWORD": "pass",  # Database Password
-        "HOST": "127.0.0.1",  # Database IP Address
-        "PORT": "5432",  # Database Port (default: 5432)
         "TEST": {
             "NAME": "test",  # Test Database Name (Optional)
         },
+        "OPTIONS": {
+            "service": "ogpt_db_service",
+            "passfile": ".pgpass"
+        }
     },
-    "mysql": {  # MySQL
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "dbase",  # Production Database Name
-        "USER": "user",  # Database Username
-        "PASSWORD": "pass",  # Database Password
-        "HOST": "127.0.0.1",  # Database IP Address
-        "PORT": "3306",  # Database Port (default: 3306)
-        "TEST": {
-            "NAME": "test",  # Test Database Name (Optional)
-        },
-    },
+    # "mysql": {  # MySQL
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "dbase",  # Production Database Name
+    #     "USER": "user",  # Database Username
+    #     "PASSWORD": "pass",  # Database Password
+    #     "HOST": "127.0.0.1",  # Database IP Address
+    #     "PORT": "3306",  # Database Port (default: 3306)
+    #     "TEST": {
+    #         "NAME": "test",  # Test Database Name (Optional)
+    #     },
+    # },
 }
 
 DATABASES["default"] = DATABASES[DB]
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -175,9 +177,3 @@ STAFF_USER_DATA = [
 ]
 
 SITE_ID = 1
-
-# @NOTE: Migrate to directory settings in the future
-try:
-    from .dev_settings import *
-except ImportError:
-    pass

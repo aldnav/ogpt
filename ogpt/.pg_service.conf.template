@@ -1,0 +1,5 @@
+[ogpt_db_service]
+host=127.0.0.1
+user=user
+dbname=dbname
+port=5432
