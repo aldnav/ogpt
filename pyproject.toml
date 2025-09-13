@@ -11,6 +11,7 @@ dependencies = [
     "django-tables2>=2.7.5",
     "djangorestframework>=3.16.1",
     "psycopg[binary]>=3.2.10",
+    "redis[hiredis]>=6.4.0",
     "rust-just>=1.42.4",
     "tablib[all]>=3.8.0",
 ]

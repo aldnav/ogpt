@@ -27,7 +27,7 @@ VAR_ROOT = os.path.abspath(
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
 # Set ALLOWED_HOSTS from environment variable for security; default to localhost for development
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")

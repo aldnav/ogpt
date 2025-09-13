@@ -8,7 +8,7 @@ CMSC 208 Software Engineering Project
 
 Read more at [docs/development.md](docs/development.md).
 
-Common setup:
+### Local Development Setup
 
 ```sh
 # Installation
@@ -29,5 +29,3 @@ just runserver-dev
 
 - Aldrin Navarro <aldrinnavarro16@gmail.com>
 - Raphael Elamparo <lrcelamparo@gmail.com>
--
--

@@ -1,0 +1,107 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: ogpt_db
+    environment:
+      POSTGRES_DB: ogptdb
+      POSTGRES_USER: ogpt
+      POSTGRES_PASSWORD: ogptpass
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./ogpt/.pg_service.conf.template:/etc/postgresql-common/pg_service.conf:ro
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - ogpt_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ogpt -d ogptdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Django Application
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: production
+    container_name: ogpt_web
+    environment:
+      - DJANGO_SETTINGS_MODULE=ogpt.docker_settings
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-change-me-in-production}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,web,nginx}
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-False}
+      - POSTGRES_DB=ogptdb
+      - POSTGRES_USER=ogpt
+      - POSTGRES_PASSWORD=ogptpass
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - REDIS_URL=redis://redis:6379/1
+    volumes:
+      - ./ogpt:/app/ogpt
+      - static_volume:/app/var/staticserve
+      - media_volume:/app/var/media
+      - ./ogpt/.pg_service.conf.template:/app/ogpt/.pg_service.conf:ro
+    ports:
+      - "${DJANGO_PORT:-8001}:8000"
+    networks:
+      - ogpt_network
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    command: >
+      sh -c "python ogpt/manage.py migrate --settings=ogpt.docker_settings &&
+             python ogpt/manage.py collectstatic --noinput --settings=ogpt.docker_settings &&
+             python ogpt/manage.py runserver 0.0.0.0:8000 --settings=ogpt.docker_settings"
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: ogpt_nginx
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - static_volume:/var/www/static:ro
+      - media_volume:/var/www/media:ro
+      - ./docker/nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - ogpt_network
+    depends_on:
+      - web
+    restart: unless-stopped
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: ogpt_redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ogpt_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+volumes:
+  postgres_data:
+    driver: local
+  static_volume:
+    driver: local
+  media_volume:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  ogpt_network:
+    driver: bridge

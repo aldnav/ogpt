@@ -1,0 +1,20 @@
+# Docker Compose override for development
+# This file is automatically loaded by docker-compose
+version: "3.8"
+
+services:
+  web:
+    environment:
+      - DJANGO_DEBUG=True
+    volumes:
+      # Mount source code for hot reloading
+      - ./ogpt:/app/ogpt
+    command: >
+      sh -c "python ogpt/manage.py migrate --settings=ogpt.docker_settings &&
+             python ogpt/manage.py collectstatic --noinput --settings=ogpt.docker_settings &&
+             python ogpt/manage.py runserver 0.0.0.0:8000 --settings=ogpt.docker_settings"
+
+  nginx:
+    # Disable SSL in development
+    ports:
+      - "80:80"
